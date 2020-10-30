@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h3>Quản Lí Người Dùng</h3>
+@model List<BookBook.Data.User>
+
+<p><a class="btn btn-primary" asp-controller="ManageUser" asp-action="Create">Add</a></p>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr style="font-size: 18px" class="table-primary">
+            <td>Id</td>
+            <td>Họ</td>
+            <td>Tên</td>
+            <td>Email</td>
+            <td>PassWord</td>
+            <td>Ngày tạo</td>
+            <td>Người tạo</td>
+            <td>Ngày chỉnh</td>
+            <td>Người chỉnh</td>
+
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.UserId</td>
+                <td>@item.FirstName</td>
+                <td>@item.LastName</td>
+                <td>@item.Email</td>
+                <td>@item.Password</td>
+                <td>@item.CreatDate</td>
+                <td>@item.CreatUser</td>
+                <td>@item.EditDate</td>
+                <td>@item.EditUser</td>
+                <td>
+                    <a href="@Url.Action("Edit", "ManageUser", new { id = item.UserId})">Edit</a>
+                    <a href="@Url.Action("Delete", "ManageUser", new { id = item.UserId})">Delete</a>
+                </td>
+            </tr>
+}
+    </tbody>
+</table>

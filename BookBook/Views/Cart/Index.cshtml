@@ -1,0 +1,143 @@
+﻿@model BookBook.Data.Address
+@{
+    ViewData["Title"] = "Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int sum = 0;
+}
+
+<h3>Giỏ hàng của bạn :</h3>
+@{
+    if (Session["Cart"] != null)
+    {
+    <table class="table-bordered table">
+        <tr>
+            <th>Option</th>
+            <th>Mã sách</th>
+            <th>Tên</th>
+            <th>Hình ảnh</th>
+            <th>Giá tiền</th>
+            <th>Só lượng</th>
+            <th>Tổng tiền</th>
+        </tr>
+        @foreach (var item in Session["Cart"] as List<BookBook.Models.Cart>)
+        {
+            sum += item.Quantity * item.ProductPrice;
+            ViewBag.Total = sum;
+        }
+
+        @foreach(var item in Session["Cart"] as List<BookBook.Models.Cart>  )
+        {
+        <tr>
+
+            <td><a href="@Url.Action("Remove", "Cart", new { id = item.ProductId })">Xóa</a></td>
+            <td>@item.ProductId</td>
+            <td>@item.ProductName</td>
+            <td><img src="~/Content/image/@item.ProductImage" width="80" height="80" /> </td>
+            <td>@item.ProductPrice</td>
+            <td>@item.Quantity</td>
+            <td>@(item.ProductPrice * item.Quantity)</td>
+        </tr>
+        }
+
+
+        <tr>
+            <td align="right" colspan="6">Tổng hóa đơn</td>
+            <td> @sum </td>
+        </tr>
+        <tr id="discountRow">
+            <td align="right" colspan="6">Giá khuyến mãi</td>
+            <td id="newPrice"></td>
+        </tr>
+
+
+    </table>
+
+        using (Html.BeginForm("CheckOut", "Cart"))
+        {
+            <div class="row">
+                <div class="col-7">
+                    <div class="row">
+                        @*<label class="col-3"> Địa chỉ :</label>
+                            <input name="address" class="col-7" />*@
+
+                        @Html.LabelFor(m => m.Address1, new { @class = "col-3" })
+                        @Html.TextBoxFor(m => m.Address1, new { @class = "col-7" })
+                    </div>
+                    <span asp-validation-for="Address" class="text-danger"></span> <br />
+                    <div class="row mt-3">
+                        @*<label class="col-3"> Số điện thoại :</label>
+                            <input name="phone" class="col-7" />*@
+
+                        @Html.LabelFor(m => m.Phone, new { @class = "col-3" })
+                        @Html.TextBoxFor(m => m.Phone, new { @class = "col-7" })
+                    </div>
+
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span> <br />
+                    <button type="submit" class="btn btn-success mt-3">Thanh toán</button>
+                    <a class="btn btn-warning mt-3" href="@Url.Action("Index", "Home")" style="float:right">Tiếp tục mua hàng</a>
+                </div>
+
+                <div class="col-5">
+                    <div class="row">
+                        <label class="col-4"> Mã khuyến mãi :</label>
+                        <input name="code" class="col-5" id="inputCode" />
+                        <img src="/Content/img/correct.svg" alt="" style=" height: 25px;position: absolute;right: 125px;top: 5px;" id="symbolOk" class="hide">
+                        <div class="btn btn-dark ml-3" style="float:right" id="btnCheck">Kiểm tra</div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <h3>Giỏ hàng của bạn trống rỗng, quay lại và lựa vài cuốn sách đi !!!</h3>
+        <a @Url.Action("Index", "Home")>Tiếp tục mua hàng</a>
+    }
+}
+
+
+
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+        $('#discountRow').hide();
+        $('#symbolOk').hide();
+        // Click nút kiểm tra mã giảm giá
+        $("#btnCheck").click(function () {
+            // Lấy mã giảm giá người dùng nhập
+            var code = $("#inputCode").val();
+
+             // Gửi request đến hàm CheckDiscount bằng ajax
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("CheckDiscount")",
+                data: { Code: code},
+                dataType: "text",
+                success: function (result) {
+                    // Nếu mã hợp lệ
+                    if (result != -1 ) {
+                        // Hiện biểu tượng OK
+                        $('#symbolOk').show();
+                        var newPrice = @sum* (100 - result) / 100;
+
+                        // Hiện giá mới
+                        $("#newPrice").text(newPrice);
+                        $("#discountRow").show();
+
+                    }
+                    // Ko hợp lệ
+                    else {
+                        alert("Mã giảm giá không hợp lệ !");
+                        $('#symbolOk').hide();
+                        $("#discountRow").hide();
+                    }
+                },
+                error: function (req, status, error) {
+                    alert(error);
+                }
+            });
+        });
+
+    });
+    </script>
+}

@@ -1,0 +1,43 @@
+﻿@model List<BookBook.Models.BillDetailView>
+
+@{
+    ViewBag.Title = "ManageBill";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ManageBill</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Sản phẩm")
+        </th>
+        <th>
+            @Html.DisplayName("Số lượng")
+        </th>
+        @*<th>
+            @Html.DisplayName("Giá tiền")
+        </th>*@
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => (int)item.ProductPrice)
+            </td>*@
+            <br />
+            <td>
+                @Html.ActionLink("Back", "Index", "Home")
+            </td>
+        </tr>
+    }
+
+</table>

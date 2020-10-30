@@ -1,0 +1,62 @@
+﻿@model BookBook.Data.Product
+
+
+@{ 
+    ViewData["Title"] = "SearchModel";
+    Layout = "~/Views/Shared/_Layout.cshtml"; 
+}
+
+<h3>Kết quả tìm kiếm của bạn : </h3>
+<br />
+
+<div class="col-lg-3 col-md-6 mb-4">
+
+    <div class="card h-100">
+        <div class="card-img-top">
+            <div class="img">
+                <img src="~/Content/image/@Html.DisplayFor(m => m.ProductImage)" alt="" />
+                <div class="txt">
+                    <a href="#"><h3 style="color:aliceblue">MUA NGAY</h3></a>
+                    <a href="@Url.Action("DetailProduct", "Products", new { id = Model.ProductId})"><h3 style="color:aliceblue">XEM CHI TIẾT</h3></a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <h4 class="card-title">@Html.DisplayFor(m => m.ProductName) </h4>
+            <p style="font-size: 20px;color: sandybrown" class="card-text">@Html.DisplayFor(m => m.ProductPrice)&nbsp; đ </p>
+        </div>
+    </div>
+</div>
+
+@*giao dien cua cart item*@
+
+<style>
+
+    .img {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .txt {
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.52);
+        position: absolute;
+        bottom: 50px;
+        text-align: center;
+        padding: 10px;
+        box-sizing: border-box;
+        opacity: 0;
+    }
+
+    .img:hover div.txt {
+        opacity: 1;
+        transform: translateY(50px);
+        transition: ease-in-out 0.5s;
+    }
+
+    .img:hover img {
+        transform: scale(1.5);
+        transition: all ease-in-out 0.5s;
+    }
+</style>

@@ -1,0 +1,90 @@
+﻿@model IEnumerable<BookBook.Data.Product>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName) 
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProducQuantity) 
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tacgia) 
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NXB) 
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nhacungcap)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductImage)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.Type.Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in ViewData["Danhsach"] as List<BookBook.Data.Product>) {
+    <tr>
+        <td>          
+            @Html.DisplayFor(modelItem => item.ProductName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProducQuantity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tacgia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NXB)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nhacungcap)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductPrice)
+        </td>
+        <td>
+            <img src="~/Content/image/@item.ProductImage" class="img-thumbnail" width="100" height="100" />
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td*@>
+        <td>
+            @Html.DisplayFor(modelItem => item.Type.Name)
+        </td>
+        <td>
+            @*<a href="@Url.Action("Edit", "Products", new { id = item.ProductId})">Edit</a> |
+        @Html.ActionLink("Delete", "Delete", new { id=item.ProductId })*@
+            @*@Html.ActionLink("Edit", "Edit", "Products", new { id = item.ProductId }) |
+        @Html.ActionLink("Details", "Details", "SanPham", new { id = item.ProductId }) |
+        @Html.ActionLink("Delete", "Delete", "Products", new { id = item.ProductId })*@
+
+            <a href="@Url.Action("Details", "Products", new { id = item.ProductId })">Detail</a>
+            <a href="@Url.Action("Edit", "Products", new { id = item.ProductId })">Edit</a>
+            <a href="@Url.Action("Delete", "Products", new { id = item.ProductId })">Delete</a>
+</td>
+    </tr>
+}
+
+</table>

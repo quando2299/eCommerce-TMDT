@@ -1,0 +1,67 @@
+﻿@model BookBook.Models.CheckOutView
+@{
+    ViewData["Title"] = "Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int sum = 0;
+}
+
+<h3>Đơn hàng của bạn :</h3>
+
+@{
+    if (Session["Cart"] != null)
+    {
+    <table class="table-bordered table">
+        <tr>
+            <th>Option</th>
+            <th>Mã sách</th>
+            <th>Tên</th>
+            <th>Hình ảnh</th>
+            <th>Giá tiền</th>
+            <th>Só lượng</th>
+            <th>Tổng tiền</th>
+        </tr>
+        @foreach (var item in Session["Cart"] as List<BookBook.Models.Cart>)
+        {
+                sum += item.Quantity * item.ProductPrice;
+                ViewBag.Total = sum;
+         }
+
+                @foreach (var item in Session["Cart"] as List<BookBook.Models.Cart>)
+                {
+                <tr>
+                    
+                    <td><a>Xóa</a></td>
+                    <td>@item.ProductId</td>
+                    <td>@item.ProductName</td>
+                    <td><img src="~/Content/image/@item.ProductImage" width="80" height="80" /> </td>
+                    <td>@item.ProductPrice</td>
+                    <td>@item.Quantity</td>
+                    <td>@(item.ProductPrice * item.Quantity)</td>
+
+                </tr>
+            }
+
+
+                <tr>
+                    <td align="right" colspan="6">Giá giảm</td>
+                    <td> @(sum - Model.Total) </td>
+                </tr>
+                <tr>
+                    <td align="right" colspan="6">Tổng hóa đơn</td>
+                    <td> @Model.Total </td>
+                </tr>
+            </table>
+        using (Html.BeginForm("ConfirmCheckOut", "Cart"))
+        {
+            @Html.HiddenFor(m => m.DiscountID)
+            @Html.HiddenFor(m => m.Total)
+            @Html.HiddenFor(m => m.FullName)
+            @Html.HiddenFor(m => m.UserID)
+            <input type="submit" class="btn btn-dark" value="Confirm" />
+        }
+    }
+    else
+    {
+        <h3 class="text-info">Success!!!</h3>
+    }
+}

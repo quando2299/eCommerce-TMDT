@@ -1,0 +1,14 @@
+﻿    
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>Chọn : </h3>
+
+<button type="button" class="btn btn-secondary">  <a href="@Url.Action("Index", "Products")">Quản Lý Sản Phẩm</a></button>
+<button type="button" class="btn btn-success"><a href="@Url.Action("Index", "Types")">Quản Lý Thể Loại</a></button>
+<button type="button" class="btn btn-danger"><a href="@Url.Action("Index", "Discounts")">Quản Lý Khuyến Mãi</a></button>
+<button type="button" class="btn btn-warning"><a href="@Url.Action("ManageBill", "Cart")">Quản Lý Hóa Đơn</a></button>
+<button type="button" class="btn btn-secondary">@Html.ActionLink("Quản lý User", "Index", "ManageUser")</button>
+<button type="button" class="btn btn-success"><a href="@Url.Action("BieuDO", "Home")">Biểu Đồ </a></button>

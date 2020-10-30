@@ -1,0 +1,58 @@
+﻿@model List<BookBook.Models.BillView>
+
+@{
+    ViewBag.Title = "ManageBill";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ManageBill</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Name")
+        </th>
+        <th>
+            @Html.DisplayName("Total")
+        </th>
+        <th>
+            @Html.DisplayName("Ngày tạo")
+        </th>
+        <th>
+            @Html.DisplayName("Người tạo")
+        </th>
+        <th>
+            @Html.DisplayName("Trạng thái")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Total)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateUser)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            
+            <td>
+                <a href="@Url.Action("Done", "Manager", new { id = item.ID})">Done</a> |
+                <a href="@Url.Action("Delete", "Manager", new { id = item.ID})">Delete</a> |
+                <a href="@Url.Action("Detail", "Manager", new { id = item.ID})">Detail</a>
+
+            </td>
+        </tr>
+    }
+
+</table>
