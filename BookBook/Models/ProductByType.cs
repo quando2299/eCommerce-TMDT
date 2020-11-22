@@ -7,9 +7,9 @@ namespace BookBook.Models
 {
     public class ProductByType
     {
-        public int ProductId { get; set; }
-        public string ProductName { get; set; }
-        public double ProductPrice { get; set; }
-        public string ProductImage { get; set; }
+        public int id { get; set; }
+        public string name { get; set; }
+        public double price { get; set; }
+        public string image { get; set; }
     }
 }

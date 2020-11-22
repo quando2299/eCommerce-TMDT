@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using BookBook.Data;
 using BookBook.Models;
+using BookBook.Database;
 //using PagedList;
 //using PagedList.Mvc;
 
@@ -16,14 +17,15 @@ namespace BookBook.Controllers
 {
     public class ProductsController : Controller
     {
-        eCommerceContext db = new eCommerceContext();
+        //eCommerceContext db = new eCommerceContext();
+        BookEntity context = new BookEntity();
 
         // GET: Products
         public ActionResult Index()
         {
 
-            //var list = db.Products.ToList();
-            ViewData["Danhsach"] = db.Products.ToList();
+            //var list = context.products.ToList();
+            ViewData["Danhsach"] = context.products.ToList();
             return View();
         }
 
@@ -32,77 +34,77 @@ namespace BookBook.Controllers
         // GET: Products/Create
         public ActionResult Create()
         {
-            ViewBag.TypeId = new SelectList(db.Types, "TypeID", "Name");
+            ViewBag.TypeId = new SelectList(context.types, "TypeID", "Name");
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Product product)
+        public ActionResult Create(product product)
         {
             if (ModelState.IsValid)
             {
-                db.Products.Add(product);
-                db.SaveChanges();
+                context.products.Add(product);
+                context.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.TypeId = new SelectList(db.Types, "TypeID", "Name", product.TypeId);
+            ViewBag.TypeId = new SelectList(context.types, "TypeID", "Name", product.typeid);
             return View(product);
         }
 
 
         public ActionResult Edit(int? id)
         {
-            var product = db.Products.Find(id);
+            var product = context.products.Find(id);
             return View(product);
         }
 
         [HttpPost]
-        public ActionResult Edit(Product product)
+        public ActionResult Edit(product product)
         {
-            var temp = db.Products.FirstOrDefault(m => m.ProductId == product.ProductId);
+            var temp = context.products.FirstOrDefault(m => m.id == product.id);
 
-            temp.ProductName = product.ProductName;
-            temp.ProducQuantity = product.ProducQuantity;
-            temp.Tacgia = product.Tacgia;
-            temp.ProductPrice = product.ProductPrice;
-            temp.Description = product.Description;
+            temp.name = product.name;
+            temp.quantity = product.quantity;
+            temp.author = product.author;
+            temp.price= product.price;
+            temp.description = product.description;
 
-            db.Entry(temp).State = EntityState.Modified;
-            db.SaveChanges();
+            context.Entry(temp).State = EntityState.Modified;
+            context.SaveChanges();
             return RedirectToAction("Index", "Products");
         }
          
         public ActionResult Delete(int id)
         {
-            var item = db.Products.Find(id);
-            db.Products.Remove(item);
-            db.SaveChanges();
+            var item = context.products.Find(id);
+            context.products.Remove(item);
+            context.SaveChanges();
             return RedirectToAction("Index");
         }
 
         public ActionResult Details(int? id)
         {
-            var product = db.Products.FirstOrDefault(m => m.ProductId == id);
+            var product = context.products.FirstOrDefault(m => m.id == id);
 
             return View(product);
         }
 
         public ActionResult DetailProduct(int? id)
         {
-            Product product = db.Products.FirstOrDefault(m => m.ProductId == id);
+            product product = context.products.FirstOrDefault(m => m.id == id);
 
             return View(product);
         }
 
         public ActionResult ProductByType(int? id)
         {
-            var list = db.Database.SqlQuery<ProductByType>(@"
-                        select p.ProductId, p.ProductName, p.ProductPrice, p.ProductImage
-                        from Products p
-                            inner join Types t on t.TypeID = p.TypeId
-                        where t.TypeID = {0}
+            var list = context.Database.SqlQuery<ProductByType>(@"
+                        select p.id, p.name, p.price, p.image
+                        from products p
+                            inner join types t on t.id = p.typeid
+                        where t.id = {0}
                         ", id).ToList();
             return View(list);
         }

@@ -2,32 +2,38 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using BookBook.Data;
+//using BookBook.Data;
+using BookBook.Database;
 
 namespace BookBook.Controllers
 {
-    public class DiscountsController : BaseController
+    public class discountsController : Controller
     {
-        private eCommerceContext db = new eCommerceContext();
+        //private eCommerceContext db = new eCommerceContext();
+        private BookEntity context = new BookEntity();
 
-        // GET: Discounts
+        // GET: discounts
         public ActionResult Index()
         {
-            return View(db.Discounts.ToList());
+            string query = @"select * from discounts where status > 0";
+            var list = context.Database.SqlQuery<discount>(query).ToList();
+            return View(list);
         }
 
-        // GET: Discounts/Details/5
+        // GET: discounts/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Discount discount = db.Discounts.Find(id);
+            discount discount = context.discounts.Find(id);
             if (discount == null)
             {
                 return HttpNotFound();
@@ -35,93 +41,116 @@ namespace BookBook.Controllers
             return View(discount);
         }
 
-        // GET: Discounts/Create
+        // GET: discounts/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Discounts/Create
+        // POST: discounts/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "DiscountId,Name,Percent,CreatDate,DateValid,QuantityDiscount")] Discount discount)
+        public ActionResult Create(discount _discount)
         {
             if (ModelState.IsValid)
             {
-                db.Discounts.Add(discount);
-                db.SaveChanges();
+                _discount.alterdate = DateTime.Now;
+                _discount.createdate = DateTime.Now;
+                _discount.createuser = "Admin";
+                _discount.alteruser = "Admin";
+                _discount.status = 1;
+
+                context.discounts.Add(_discount);
+                context.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(discount);
+            return View(_discount);
         }
 
-        // GET: Discounts/Edit/5
+        // GET: discounts/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Discount discount = db.Discounts.Find(id);
-            if (discount == null)
+            discount _discount = context.discounts.Find(id);
+            if (_discount == null)
             {
                 return HttpNotFound();
             }
-            return View(discount);
+            return View(_discount);
         }
 
-        // POST: Discounts/Edit/5
+        // POST: discounts/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "DiscountId,Name,Percent,CreatDate,DateValid,QuantityDiscount")] Discount discount)
+        public ActionResult Edit(discount _discount)
         {
-            if (ModelState.IsValid)
+            using (var dbTran = context.Database.BeginTransaction())
             {
-                db.Entry(discount).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    if (ModelState.IsValid)
+                    {
+
+                        var temp = context.discounts.Find(_discount.id);
+
+                        temp.name = (_discount.name != null || _discount.name != "") ? _discount.name : temp.name;
+                        temp.discount_percent = (_discount.discount_percent != null) ? _discount.discount_percent : temp.discount_percent;
+                        temp.quantity = (_discount.quantity != null) ? _discount.quantity : temp.quantity;
+                        temp.datevalid = (_discount.datevalid != null) ? _discount.datevalid : temp.datevalid;
+
+                        context.Entry(temp).State = EntityState.Modified;
+                        context.SaveChanges();
+
+                        dbTran.Commit();
+                        return RedirectToAction("Index");
+                    }
+                }
+                catch (DbEntityValidationException dbEx)
+                {
+                    foreach (var validationErrors in dbEx.EntityValidationErrors)
+                    {
+                        foreach (var validationError in validationErrors.ValidationErrors)
+                        {
+                            Trace.TraceInformation("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
+                        }
+                    }
+
+                    dbTran.Rollback();
+
+                    return View(_discount);
+                }
             }
-            return View(discount);
+
+            return View(_discount);
         }
 
-        // GET: Discounts/Delete/5
+        // GET: discounts/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Discount discount = db.Discounts.Find(id);
-            if (discount == null)
+            discount _discount = context.discounts.Find(id);
+
+            if (_discount == null)
             {
                 return HttpNotFound();
             }
-            return View(discount);
-        }
 
-        // POST: Discounts/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Discount discount = db.Discounts.Find(id);
-            db.Discounts.Remove(discount);
-            db.SaveChanges();
+            _discount.status = 0;
+            _discount.alterdate = DateTime.Now;
+            context.Entry(_discount).State = EntityState.Modified;
+            context.SaveChanges();
+
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

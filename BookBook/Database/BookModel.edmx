@@ -54,6 +54,7 @@
           <Property Name="createuser" Type="varchar" MaxLength="50" />
           <Property Name="alterdate" Type="datetime" />
           <Property Name="alteruser" Type="varchar" MaxLength="50" />
+          <Property Name="status" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="order_detail">
           <Key>
@@ -412,6 +413,7 @@
           <Property Name="createuser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="alterdate" Type="DateTime" Precision="3" />
           <Property Name="alteruser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="Int32" Nullable="false" />
           <NavigationProperty Name="bill_detail" Relationship="BookModel.FK__bill_deta__disco__5070F446" FromRole="discount" ToRole="bill_detail" />
           <NavigationProperty Name="order_detail" Relationship="BookModel.FK__order_det__disco__48CFD27E" FromRole="discount" ToRole="order_detail" />
         </EntityType>
@@ -675,6 +677,7 @@
           <EntitySetMapping Name="discounts">
             <EntityTypeMapping TypeName="BookModel.discount">
               <MappingFragment StoreEntitySet="discounts">
+                <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="alteruser" ColumnName="alteruser" />
                 <ScalarProperty Name="alterdate" ColumnName="alterdate" />
                 <ScalarProperty Name="createuser" ColumnName="createuser" />

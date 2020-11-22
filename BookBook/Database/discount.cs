@@ -30,6 +30,7 @@ namespace BookBook.Database
         public string createuser { get; set; }
         public Nullable<System.DateTime> alterdate { get; set; }
         public string alteruser { get; set; }
+        public int status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<bill_detail> bill_detail { get; set; }

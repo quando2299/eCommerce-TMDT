@@ -18,7 +18,6 @@ namespace BookBook.Controllers
 
         public ActionResult Index()
         {
-            //return View(db.Types.ToList());
             return View(context.types.ToList());
         }
 
@@ -26,6 +25,7 @@ namespace BookBook.Controllers
         {
             return View();
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]

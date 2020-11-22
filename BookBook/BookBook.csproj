@@ -534,7 +534,6 @@
     <Content Include="Views\Products\DetailProduct.cshtml" />
     <Content Include="Views\Home\Sort.cshtml" />
     <Content Include="Views\Types\Create.cshtml" />
-    <Content Include="Views\Types\Delete.cshtml" />
     <Content Include="Views\Types\Edit.cshtml" />
     <Content Include="Views\Types\Index.cshtml" />
     <Content Include="Views\Products\ProductByType.cshtml" />
@@ -542,7 +541,6 @@
     <Content Include="Views\ManageUser\Create.cshtml" />
     <Content Include="Views\ManageUser\Edit.cshtml" />
     <Content Include="Views\Discounts\Create.cshtml" />
-    <Content Include="Views\Discounts\Delete.cshtml" />
     <Content Include="Views\Discounts\Edit.cshtml" />
     <Content Include="Views\Discounts\Index.cshtml" />
     <Content Include="Views\Manager\Index.cshtml" />
