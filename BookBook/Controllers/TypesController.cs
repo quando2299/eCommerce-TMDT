@@ -29,10 +29,16 @@ namespace BookBook.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,name")] type _type)
+        public ActionResult Create(type _type)
         {
             if (ModelState.IsValid)
             {
+                _type.createuser = "Admin";
+                _type.alteruser = "Admin";
+                _type.createdate = DateTime.Now;
+                _type.alterdate = DateTime.Now;
+                _type.status = 1;
+
                 context.types.Add(_type);
                 context.SaveChanges();
                 return RedirectToAction("Index");
@@ -57,10 +63,16 @@ namespace BookBook.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,name")]type _type)
+        public ActionResult Edit(type _type)
         {
             if (ModelState.IsValid)
             {
+                _type.createuser = "Admin";
+                _type.alteruser = "Admin";
+                _type.createdate = DateTime.Now;
+                _type.alterdate = DateTime.Now;
+                _type.status = 1;
+
                 context.Entry(_type).State = EntityState.Modified;
                 context.SaveChanges();
                 return RedirectToAction("Index");
