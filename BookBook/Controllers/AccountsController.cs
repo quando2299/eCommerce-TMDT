@@ -6,6 +6,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Caching;
+using BookBook.Database;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 
 namespace BookBook.Controllers
 {
@@ -19,24 +22,21 @@ namespace BookBook.Controllers
 
 
         [HttpPost]
-        [OutputCache(Duration =120)]
-        public ActionResult Login(User user)
+        public ActionResult Login(user user)
         {
-            eCommerceContext db = new eCommerceContext();
+            //eCommerceContext db = new eCommerceContext();
+            BookEntity context = new BookEntity();
             if (ModelState.IsValid)
             {
-                var temp = db.Users.FirstOrDefault(m => m.Email == user.Email);
+                var temp = context.users.FirstOrDefault(m => m.email == user.email);
 
                 if (temp != null)
                 {
-                    if (temp.Password == user.Password)
+                    if (temp.password == user.password)
                     {
-                        Session["Account"] = temp.UserId;
-                        Session["Email"] = temp.Email;
+                        Session["Account"] = temp.id;
+                        Session["Email"] = temp.email;
 
-                        //Cache cache = new Cache();
-                        //cache.Add("testCache", "testCache", null, DateTime.MaxValue, TimeSpan.FromDays(1), CacheItemPriority.Normal, null);
-                        //cache.Get("testCache");
                         return RedirectToAction("Index", "Home");
                     }
                 }
@@ -56,29 +56,32 @@ namespace BookBook.Controllers
         }
 
         [HttpPost]
-        public ActionResult Register(User user)
+        public ActionResult Register(user _user)
         {
-            eCommerceContext db = new eCommerceContext();
-            using (var dbTran = db.Database.BeginTransaction()) 
+            //eCommerceContext db = new eCommerceContext();
+            BookEntity context = new BookEntity();
+
+            using (var dbTran = context.Database.BeginTransaction()) 
             {
                 try
                 {
                     if (ModelState.IsValid)
                     {
-                        var temp = db.Users.FirstOrDefault(m => m.Email == user.Email);
+                        var temp = context.users.FirstOrDefault(m => m.email == _user.email);
 
                         if (temp == null)
                         {
-                            if (user.Password == user.ConfirmPassword)
+                            if (_user.password == _user.confirm_password)
                             {
-                                user.CreatUser = user.FirstName + " " + user.LastName;
-                                user.CreatDate = DateTime.Now;
-                                user.EditUser = user.FirstName + " " + user.LastName;
-                                user.EditDate = DateTime.Now;
-                                user.Status = "Active";
+                                _user.createuser = _user.firstname + " " + _user.lastname;
+                                _user.createdate = DateTime.Now;
+                                _user.alteruser = _user.firstname + " " + _user.lastname;
+                                _user.alterdate = DateTime.Now;
+                                _user.status = 1;
+                                _user.isadmin = 0;
 
-                                db.Users.Add(user);
-                                db.SaveChanges();
+                                context.users.Add(_user);
+                                context.SaveChanges();
 
                                 dbTran.Commit();
 
@@ -90,20 +93,27 @@ namespace BookBook.Controllers
                             ViewBag.Error = "User has existed!";
                             dbTran.Rollback();
 
-                            return View(user);
+                            return View(_user);
                         }
                     }
                 }
-                catch (Exception ex)
+                catch (DbEntityValidationException dbEx)
                 {
-                    dbTran.Rollback();
-                    ModelState.AddModelError("", "" + ex.Message);
+                    foreach (var validationErrors in dbEx.EntityValidationErrors)
+                    {
+                        foreach (var validationError in validationErrors.ValidationErrors)
+                        {
+                            Trace.TraceInformation("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
+                        }
+                    }
 
-                    return View(user);
+                    dbTran.Rollback();
+
+                    return View(_user);
                 }
             }
 
-            return View(user);
+            return View(_user);
         }
 
         public ActionResult Logout()

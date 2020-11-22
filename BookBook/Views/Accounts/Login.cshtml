@@ -1,4 +1,4 @@
-﻿@model BookBook.Data.User
+﻿@model BookBook.Database.user
 
 @{
     ViewBag.Title = "Login";
@@ -11,12 +11,12 @@
         {
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                @Html.LabelFor(m => m.Email, new { @class = "control-label" })
-                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                @Html.LabelFor(m => m.email, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.email, new { @class = "form-control" })
             </div>
             <div class="form-group">
-                @Html.LabelFor(m => m.Password, new { @class = "control-label" })
-                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                @Html.LabelFor(m => m.password, new { @class = "control-label" })
+                @Html.PasswordFor(m => m.password, new { @class = "form-control" })
             </div>
 
             <br />

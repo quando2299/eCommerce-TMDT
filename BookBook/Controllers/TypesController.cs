@@ -6,23 +6,20 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using BookBook.Data;
+//using BookBook.Data;
+using BookBook.Database;
 
 namespace BookBook.Controllers
 {
     public class TypesController : BaseController
     {
-        private eCommerceContext db = new eCommerceContext();
+        //private eCommerceContext db = new eCommerceContext();
+        private BookEntity context = new BookEntity();
 
         public ActionResult Index()
         {
-            return View(db.Types.ToList());
-        }
-
-        [OutputCache(Duration = 3)]
-        public ActionResult Cache()
-        {
-            return View(db.Types.ToList());
+            //return View(db.Types.ToList());
+            return View(context.types.ToList());
         }
 
         public ActionResult Create()
@@ -32,16 +29,16 @@ namespace BookBook.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TypeID,Name")] Data.Type type)
+        public ActionResult Create([Bind(Include = "id,name")] type _type)
         {
             if (ModelState.IsValid)
             {
-                db.Types.Add(type);
-                db.SaveChanges();
+                context.types.Add(_type);
+                context.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(type);
+            return View(_type);
         }
 
         public ActionResult Edit(int? id)
@@ -50,50 +47,36 @@ namespace BookBook.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Data.Type type = db.Types.Find(id);
-            if (type == null)
+            type _type = context.types.Find(id);
+            if (_type == null)
             {
                 return HttpNotFound();
             }
-            return View(type);
+            return View(_type);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TypeID,Name")] Data.Type type)
+        public ActionResult Edit([Bind(Include = "id,name")]type _type)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(type).State = EntityState.Modified;
-                db.SaveChanges();
+                context.Entry(_type).State = EntityState.Modified;
+                context.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(type);
+            return View(_type);
         }
-
-        // GET: Types/Delete/5
-        //public ActionResult Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Data.Type type = db.Types.Find(id);
-        //    if (type == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(type);
-        //}
-
-        //// POST: Types/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
-            Data.Type type = db.Types.Find(id);
-            db.Types.Remove(type);
-            db.SaveChanges();
+            type _type = context.types.Find(id);
+            if (_type == null)
+                return RedirectToAction("Index");
+
+            _type.status = 0;
+
+            context.Entry(_type).State = EntityState.Modified;
+            context.SaveChanges();
             return RedirectToAction("Index");
         }
     }

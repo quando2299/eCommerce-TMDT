@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1246bcc7915042f5a56658ffdc837620" Name="Diagram1">
+        <EntityTypeShape EntityType="BookModel.bill" Width="1.5" PointX="3" PointY="14.625" />
+        <EntityTypeShape EntityType="BookModel.bill_detail" Width="1.5" PointX="5.25" PointY="5" />
+        <EntityTypeShape EntityType="BookModel.comment" Width="1.5" PointX="5.75" PointY="8.875" />
+        <EntityTypeShape EntityType="BookModel.discount" Width="1.5" PointX="3" PointY="10.125" />
+        <EntityTypeShape EntityType="BookModel.order_detail" Width="1.5" PointX="8.25" PointY="5" />
+        <EntityTypeShape EntityType="BookModel.order" Width="1.5" PointX="6" PointY="0.75" />
+        <EntityTypeShape EntityType="BookModel.product" Width="1.5" PointX="3" PointY="4.125" />
+        <EntityTypeShape EntityType="BookModel.rating" Width="1.5" PointX="7.75" PointY="8.875" />
+        <EntityTypeShape EntityType="BookModel.status_bill" Width="1.5" PointX="9.75" PointY="8.875" />
+        <EntityTypeShape EntityType="BookModel.type" Width="1.5" PointX="0.75" PointY="5" />
+        <EntityTypeShape EntityType="BookModel.user" Width="1.5" PointX="0.75" PointY="14" />
+        <AssociationConnector Association="BookModel.FK__bill__userid__4CA06362" />
+        <AssociationConnector Association="BookModel.FK__bill_deta__billi__4F7CD00D" />
+        <AssociationConnector Association="BookModel.FK__bill_deta__disco__5070F446" />
+        <AssociationConnector Association="BookModel.FK__bill_deta__produ__5165187F" />
+        <AssociationConnector Association="BookModel.FK__order_det__disco__48CFD27E" />
+        <AssociationConnector Association="BookModel.FK__order_det__order__47DBAE45" />
+        <AssociationConnector Association="BookModel.FK__order_det__produ__49C3F6B7" />
+        <AssociationConnector Association="BookModel.FK__orders__userid__44FF419A" />
+        <AssociationConnector Association="BookModel.FK__products__typeid__3A81B327" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,813 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BookModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="bill">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userid" Type="int" Nullable="false" />
+          <Property Name="total" Type="int" />
+          <Property Name="createdate" Type="datetime" />
+          <Property Name="createuser" Type="varchar" MaxLength="50" />
+          <Property Name="alterdate" Type="datetime" />
+          <Property Name="alteruser" Type="varchar" MaxLength="50" />
+          <Property Name="status" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="bill_detail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="billid" Type="int" Nullable="false" />
+          <Property Name="productid" Type="int" Nullable="false" />
+          <Property Name="discountid" Type="int" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="comments">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userid" Type="int" Nullable="false" />
+          <Property Name="productid" Type="int" Nullable="false" />
+          <Property Name="content" Type="text" Nullable="false" />
+          <Property Name="createdate" Type="datetime" />
+          <Property Name="createuser" Type="varchar" MaxLength="50" />
+          <Property Name="alterdate" Type="datetime" />
+          <Property Name="alteruser" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="discounts">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="text" Nullable="false" />
+          <Property Name="discount_percent" Type="float" Nullable="false" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+          <Property Name="datevalid" Type="datetime" />
+          <Property Name="createdate" Type="datetime" />
+          <Property Name="createuser" Type="varchar" MaxLength="50" />
+          <Property Name="alterdate" Type="datetime" />
+          <Property Name="alteruser" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="order_detail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="orderid" Type="int" Nullable="false" />
+          <Property Name="productid" Type="int" Nullable="false" />
+          <Property Name="discountid" Type="int" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="orders">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userid" Type="int" Nullable="false" />
+          <Property Name="total" Type="int" />
+          <Property Name="createdate" Type="datetime" />
+          <Property Name="createuser" Type="varchar" MaxLength="50" />
+          <Property Name="alterdate" Type="datetime" />
+          <Property Name="alteruser" Type="varchar" MaxLength="50" />
+          <Property Name="status" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="products">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="typeid" Type="int" Nullable="false" />
+          <Property Name="name" Type="text" Nullable="false" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+          <Property Name="author" Type="text" Nullable="false" />
+          <Property Name="publishing_company" Type="text" />
+          <Property Name="price" Type="int" Nullable="false" />
+          <Property Name="description" Type="text" />
+          <Property Name="createdate" Type="datetime" />
+          <Property Name="createuser" Type="varchar" MaxLength="50" />
+          <Property Name="alterdate" Type="datetime" />
+          <Property Name="alteruser" Type="varchar" MaxLength="50" />
+          <Property Name="image" Type="text" />
+        </EntityType>
+        <EntityType Name="rating">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userid" Type="int" Nullable="false" />
+          <Property Name="productid" Type="int" Nullable="false" />
+          <Property Name="product_point" Type="int" />
+          <Property Name="product_point_avg" Type="float" />
+          <Property Name="createdate" Type="datetime" />
+          <Property Name="createuser" Type="varchar" MaxLength="50" />
+          <Property Name="alterdate" Type="datetime" />
+          <Property Name="alteruser" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="status_bill">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="status_name" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="createdate" Type="datetime" />
+          <Property Name="createuser" Type="varchar" MaxLength="50" />
+          <Property Name="alterdate" Type="datetime" />
+          <Property Name="alteruser" Type="varchar" MaxLength="50" />
+          <Property Name="status" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firstname" Type="nvarchar" MaxLength="30" />
+          <Property Name="lastname" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="phone" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="confirm_password" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="address" Type="text" Nullable="false" />
+          <Property Name="createdate" Type="datetime" />
+          <Property Name="createuser" Type="varchar" MaxLength="50" />
+          <Property Name="alterdate" Type="datetime" />
+          <Property Name="alteruser" Type="varchar" MaxLength="50" />
+          <Property Name="status" Type="int" />
+          <Property Name="isadmin" Type="int" />
+        </EntityType>
+        <Association Name="FK__bill__userid__4CA06362">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="bill" Type="Self.bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="bill">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__bill_deta__billi__4F7CD00D">
+          <End Role="bill" Type="Self.bill" Multiplicity="1" />
+          <End Role="bill_detail" Type="Self.bill_detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bill">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="bill_detail">
+              <PropertyRef Name="billid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__bill_deta__disco__5070F446">
+          <End Role="discounts" Type="Self.discounts" Multiplicity="0..1" />
+          <End Role="bill_detail" Type="Self.bill_detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="discounts">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="bill_detail">
+              <PropertyRef Name="discountid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__bill_deta__produ__5165187F">
+          <End Role="products" Type="Self.products" Multiplicity="1" />
+          <End Role="bill_detail" Type="Self.bill_detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="bill_detail">
+              <PropertyRef Name="productid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__order_det__disco__48CFD27E">
+          <End Role="discounts" Type="Self.discounts" Multiplicity="0..1" />
+          <End Role="order_detail" Type="Self.order_detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="discounts">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="order_detail">
+              <PropertyRef Name="discountid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__order_det__order__47DBAE45">
+          <End Role="orders" Type="Self.orders" Multiplicity="1" />
+          <End Role="order_detail" Type="Self.order_detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="orders">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="order_detail">
+              <PropertyRef Name="orderid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__order_det__produ__49C3F6B7">
+          <End Role="products" Type="Self.products" Multiplicity="1" />
+          <End Role="order_detail" Type="Self.order_detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="order_detail">
+              <PropertyRef Name="productid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__orders__userid__44FF419A">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="orders" Type="Self.orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="orders">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__products__typeid__3A81B327">
+          <End Role="type" Type="Self.type" Multiplicity="1" />
+          <End Role="products" Type="Self.products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="type">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="products">
+              <PropertyRef Name="typeid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BookModelStoreContainer">
+          <EntitySet Name="bill" EntityType="Self.bill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="bill_detail" EntityType="Self.bill_detail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="comments" EntityType="Self.comments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="discounts" EntityType="Self.discounts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="order_detail" EntityType="Self.order_detail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="orders" EntityType="Self.orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="products" EntityType="Self.products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="rating" EntityType="Self.rating" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="status_bill" EntityType="Self.status_bill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="type" EntityType="Self.type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__bill__userid__4CA06362" Association="Self.FK__bill__userid__4CA06362">
+            <End Role="users" EntitySet="users" />
+            <End Role="bill" EntitySet="bill" />
+          </AssociationSet>
+          <AssociationSet Name="FK__bill_deta__billi__4F7CD00D" Association="Self.FK__bill_deta__billi__4F7CD00D">
+            <End Role="bill" EntitySet="bill" />
+            <End Role="bill_detail" EntitySet="bill_detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__bill_deta__disco__5070F446" Association="Self.FK__bill_deta__disco__5070F446">
+            <End Role="discounts" EntitySet="discounts" />
+            <End Role="bill_detail" EntitySet="bill_detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__bill_deta__produ__5165187F" Association="Self.FK__bill_deta__produ__5165187F">
+            <End Role="products" EntitySet="products" />
+            <End Role="bill_detail" EntitySet="bill_detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__order_det__disco__48CFD27E" Association="Self.FK__order_det__disco__48CFD27E">
+            <End Role="discounts" EntitySet="discounts" />
+            <End Role="order_detail" EntitySet="order_detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__order_det__order__47DBAE45" Association="Self.FK__order_det__order__47DBAE45">
+            <End Role="orders" EntitySet="orders" />
+            <End Role="order_detail" EntitySet="order_detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__order_det__produ__49C3F6B7" Association="Self.FK__order_det__produ__49C3F6B7">
+            <End Role="products" EntitySet="products" />
+            <End Role="order_detail" EntitySet="order_detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__orders__userid__44FF419A" Association="Self.FK__orders__userid__44FF419A">
+            <End Role="users" EntitySet="users" />
+            <End Role="orders" EntitySet="orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__products__typeid__3A81B327" Association="Self.FK__products__typeid__3A81B327">
+            <End Role="type" EntitySet="type" />
+            <End Role="products" EntitySet="products" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BookModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="BookEntity" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="bills" EntityType="BookModel.bill" />
+          <EntitySet Name="bill_detail" EntityType="BookModel.bill_detail" />
+          <EntitySet Name="comments" EntityType="BookModel.comment" />
+          <EntitySet Name="discounts" EntityType="BookModel.discount" />
+          <EntitySet Name="order_detail" EntityType="BookModel.order_detail" />
+          <EntitySet Name="orders" EntityType="BookModel.order" />
+          <EntitySet Name="products" EntityType="BookModel.product" />
+          <EntitySet Name="ratings" EntityType="BookModel.rating" />
+          <EntitySet Name="status_bill" EntityType="BookModel.status_bill" />
+          <EntitySet Name="types" EntityType="BookModel.type" />
+          <EntitySet Name="users" EntityType="BookModel.user" />
+          <AssociationSet Name="FK__bill__userid__4CA06362" Association="BookModel.FK__bill__userid__4CA06362">
+            <End Role="user" EntitySet="users" />
+            <End Role="bill" EntitySet="bills" />
+          </AssociationSet>
+          <AssociationSet Name="FK__bill_deta__billi__4F7CD00D" Association="BookModel.FK__bill_deta__billi__4F7CD00D">
+            <End Role="bill" EntitySet="bills" />
+            <End Role="bill_detail" EntitySet="bill_detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__bill_deta__disco__5070F446" Association="BookModel.FK__bill_deta__disco__5070F446">
+            <End Role="discount" EntitySet="discounts" />
+            <End Role="bill_detail" EntitySet="bill_detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__bill_deta__produ__5165187F" Association="BookModel.FK__bill_deta__produ__5165187F">
+            <End Role="product" EntitySet="products" />
+            <End Role="bill_detail" EntitySet="bill_detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__order_det__disco__48CFD27E" Association="BookModel.FK__order_det__disco__48CFD27E">
+            <End Role="discount" EntitySet="discounts" />
+            <End Role="order_detail" EntitySet="order_detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__order_det__order__47DBAE45" Association="BookModel.FK__order_det__order__47DBAE45">
+            <End Role="order" EntitySet="orders" />
+            <End Role="order_detail" EntitySet="order_detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__order_det__produ__49C3F6B7" Association="BookModel.FK__order_det__produ__49C3F6B7">
+            <End Role="product" EntitySet="products" />
+            <End Role="order_detail" EntitySet="order_detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__orders__userid__44FF419A" Association="BookModel.FK__orders__userid__44FF419A">
+            <End Role="user" EntitySet="users" />
+            <End Role="order" EntitySet="orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__products__typeid__3A81B327" Association="BookModel.FK__products__typeid__3A81B327">
+            <End Role="type" EntitySet="types" />
+            <End Role="product" EntitySet="products" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="bill">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userid" Type="Int32" Nullable="false" />
+          <Property Name="total" Type="Int32" />
+          <Property Name="createdate" Type="DateTime" Precision="3" />
+          <Property Name="createuser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="alterdate" Type="DateTime" Precision="3" />
+          <Property Name="alteruser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="user" Relationship="BookModel.FK__bill__userid__4CA06362" FromRole="bill" ToRole="user" />
+          <NavigationProperty Name="bill_detail" Relationship="BookModel.FK__bill_deta__billi__4F7CD00D" FromRole="bill" ToRole="bill_detail" />
+        </EntityType>
+        <EntityType Name="bill_detail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="billid" Type="Int32" Nullable="false" />
+          <Property Name="productid" Type="Int32" Nullable="false" />
+          <Property Name="discountid" Type="Int32" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="bill" Relationship="BookModel.FK__bill_deta__billi__4F7CD00D" FromRole="bill_detail" ToRole="bill" />
+          <NavigationProperty Name="discount" Relationship="BookModel.FK__bill_deta__disco__5070F446" FromRole="bill_detail" ToRole="discount" />
+          <NavigationProperty Name="product" Relationship="BookModel.FK__bill_deta__produ__5165187F" FromRole="bill_detail" ToRole="product" />
+        </EntityType>
+        <EntityType Name="comment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userid" Type="Int32" Nullable="false" />
+          <Property Name="productid" Type="Int32" Nullable="false" />
+          <Property Name="content" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="createdate" Type="DateTime" Precision="3" />
+          <Property Name="createuser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="alterdate" Type="DateTime" Precision="3" />
+          <Property Name="alteruser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="discount">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="discount_percent" Type="Double" Nullable="false" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <Property Name="datevalid" Type="DateTime" Precision="3" />
+          <Property Name="createdate" Type="DateTime" Precision="3" />
+          <Property Name="createuser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="alterdate" Type="DateTime" Precision="3" />
+          <Property Name="alteruser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="bill_detail" Relationship="BookModel.FK__bill_deta__disco__5070F446" FromRole="discount" ToRole="bill_detail" />
+          <NavigationProperty Name="order_detail" Relationship="BookModel.FK__order_det__disco__48CFD27E" FromRole="discount" ToRole="order_detail" />
+        </EntityType>
+        <EntityType Name="order_detail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="orderid" Type="Int32" Nullable="false" />
+          <Property Name="productid" Type="Int32" Nullable="false" />
+          <Property Name="discountid" Type="Int32" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="discount" Relationship="BookModel.FK__order_det__disco__48CFD27E" FromRole="order_detail" ToRole="discount" />
+          <NavigationProperty Name="order" Relationship="BookModel.FK__order_det__order__47DBAE45" FromRole="order_detail" ToRole="order" />
+          <NavigationProperty Name="product" Relationship="BookModel.FK__order_det__produ__49C3F6B7" FromRole="order_detail" ToRole="product" />
+        </EntityType>
+        <EntityType Name="order">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userid" Type="Int32" Nullable="false" />
+          <Property Name="total" Type="Int32" />
+          <Property Name="createdate" Type="DateTime" Precision="3" />
+          <Property Name="createuser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="alterdate" Type="DateTime" Precision="3" />
+          <Property Name="alteruser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="order_detail" Relationship="BookModel.FK__order_det__order__47DBAE45" FromRole="order" ToRole="order_detail" />
+          <NavigationProperty Name="user" Relationship="BookModel.FK__orders__userid__44FF419A" FromRole="order" ToRole="user" />
+        </EntityType>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="typeid" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <Property Name="author" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="publishing_company" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="price" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="createdate" Type="DateTime" Precision="3" />
+          <Property Name="createuser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="alterdate" Type="DateTime" Precision="3" />
+          <Property Name="alteruser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="bill_detail" Relationship="BookModel.FK__bill_deta__produ__5165187F" FromRole="product" ToRole="bill_detail" />
+          <NavigationProperty Name="order_detail" Relationship="BookModel.FK__order_det__produ__49C3F6B7" FromRole="product" ToRole="order_detail" />
+          <NavigationProperty Name="type" Relationship="BookModel.FK__products__typeid__3A81B327" FromRole="product" ToRole="type" />
+        </EntityType>
+        <EntityType Name="rating">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userid" Type="Int32" Nullable="false" />
+          <Property Name="productid" Type="Int32" Nullable="false" />
+          <Property Name="product_point" Type="Int32" />
+          <Property Name="product_point_avg" Type="Double" />
+          <Property Name="createdate" Type="DateTime" Precision="3" />
+          <Property Name="createuser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="alterdate" Type="DateTime" Precision="3" />
+          <Property Name="alteruser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="status_bill">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="status_name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="createdate" Type="DateTime" Precision="3" />
+          <Property Name="createuser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="alterdate" Type="DateTime" Precision="3" />
+          <Property Name="alteruser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="products" Relationship="BookModel.FK__products__typeid__3A81B327" FromRole="type" ToRole="product" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstname" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="lastname" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="phone" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="confirm_password" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="address" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="createdate" Type="DateTime" Precision="3" />
+          <Property Name="createuser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="alterdate" Type="DateTime" Precision="3" />
+          <Property Name="alteruser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="Int32" />
+          <Property Name="isadmin" Type="Int32" />
+          <NavigationProperty Name="bills" Relationship="BookModel.FK__bill__userid__4CA06362" FromRole="user" ToRole="bill" />
+          <NavigationProperty Name="orders" Relationship="BookModel.FK__orders__userid__44FF419A" FromRole="user" ToRole="order" />
+        </EntityType>
+        <Association Name="FK__bill__userid__4CA06362">
+          <End Type="BookModel.user" Role="user" Multiplicity="1" />
+          <End Type="BookModel.bill" Role="bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="bill">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__bill_deta__billi__4F7CD00D">
+          <End Type="BookModel.bill" Role="bill" Multiplicity="1" />
+          <End Type="BookModel.bill_detail" Role="bill_detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bill">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="bill_detail">
+              <PropertyRef Name="billid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__bill_deta__disco__5070F446">
+          <End Type="BookModel.discount" Role="discount" Multiplicity="0..1" />
+          <End Type="BookModel.bill_detail" Role="bill_detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="discount">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="bill_detail">
+              <PropertyRef Name="discountid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__bill_deta__produ__5165187F">
+          <End Type="BookModel.product" Role="product" Multiplicity="1" />
+          <End Type="BookModel.bill_detail" Role="bill_detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="bill_detail">
+              <PropertyRef Name="productid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__order_det__disco__48CFD27E">
+          <End Type="BookModel.discount" Role="discount" Multiplicity="0..1" />
+          <End Type="BookModel.order_detail" Role="order_detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="discount">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="order_detail">
+              <PropertyRef Name="discountid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__order_det__order__47DBAE45">
+          <End Type="BookModel.order" Role="order" Multiplicity="1" />
+          <End Type="BookModel.order_detail" Role="order_detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="order">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="order_detail">
+              <PropertyRef Name="orderid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__order_det__produ__49C3F6B7">
+          <End Type="BookModel.product" Role="product" Multiplicity="1" />
+          <End Type="BookModel.order_detail" Role="order_detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="order_detail">
+              <PropertyRef Name="productid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__orders__userid__44FF419A">
+          <End Type="BookModel.user" Role="user" Multiplicity="1" />
+          <End Type="BookModel.order" Role="order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="order">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__products__typeid__3A81B327">
+          <End Type="BookModel.type" Role="type" Multiplicity="1" />
+          <End Type="BookModel.product" Role="product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="type">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="product">
+              <PropertyRef Name="typeid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BookModelStoreContainer" CdmEntityContainer="BookEntity">
+          <EntitySetMapping Name="bills">
+            <EntityTypeMapping TypeName="BookModel.bill">
+              <MappingFragment StoreEntitySet="bill">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="alteruser" ColumnName="alteruser" />
+                <ScalarProperty Name="alterdate" ColumnName="alterdate" />
+                <ScalarProperty Name="createuser" ColumnName="createuser" />
+                <ScalarProperty Name="createdate" ColumnName="createdate" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bill_detail">
+            <EntityTypeMapping TypeName="BookModel.bill_detail">
+              <MappingFragment StoreEntitySet="bill_detail">
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="discountid" ColumnName="discountid" />
+                <ScalarProperty Name="productid" ColumnName="productid" />
+                <ScalarProperty Name="billid" ColumnName="billid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="comments">
+            <EntityTypeMapping TypeName="BookModel.comment">
+              <MappingFragment StoreEntitySet="comments">
+                <ScalarProperty Name="alteruser" ColumnName="alteruser" />
+                <ScalarProperty Name="alterdate" ColumnName="alterdate" />
+                <ScalarProperty Name="createuser" ColumnName="createuser" />
+                <ScalarProperty Name="createdate" ColumnName="createdate" />
+                <ScalarProperty Name="content" ColumnName="content" />
+                <ScalarProperty Name="productid" ColumnName="productid" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="discounts">
+            <EntityTypeMapping TypeName="BookModel.discount">
+              <MappingFragment StoreEntitySet="discounts">
+                <ScalarProperty Name="alteruser" ColumnName="alteruser" />
+                <ScalarProperty Name="alterdate" ColumnName="alterdate" />
+                <ScalarProperty Name="createuser" ColumnName="createuser" />
+                <ScalarProperty Name="createdate" ColumnName="createdate" />
+                <ScalarProperty Name="datevalid" ColumnName="datevalid" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="discount_percent" ColumnName="discount_percent" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="order_detail">
+            <EntityTypeMapping TypeName="BookModel.order_detail">
+              <MappingFragment StoreEntitySet="order_detail">
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="discountid" ColumnName="discountid" />
+                <ScalarProperty Name="productid" ColumnName="productid" />
+                <ScalarProperty Name="orderid" ColumnName="orderid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="orders">
+            <EntityTypeMapping TypeName="BookModel.order">
+              <MappingFragment StoreEntitySet="orders">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="alteruser" ColumnName="alteruser" />
+                <ScalarProperty Name="alterdate" ColumnName="alterdate" />
+                <ScalarProperty Name="createuser" ColumnName="createuser" />
+                <ScalarProperty Name="createdate" ColumnName="createdate" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="products">
+            <EntityTypeMapping TypeName="BookModel.product">
+              <MappingFragment StoreEntitySet="products">
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="alteruser" ColumnName="alteruser" />
+                <ScalarProperty Name="alterdate" ColumnName="alterdate" />
+                <ScalarProperty Name="createuser" ColumnName="createuser" />
+                <ScalarProperty Name="createdate" ColumnName="createdate" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="publishing_company" ColumnName="publishing_company" />
+                <ScalarProperty Name="author" ColumnName="author" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="typeid" ColumnName="typeid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ratings">
+            <EntityTypeMapping TypeName="BookModel.rating">
+              <MappingFragment StoreEntitySet="rating">
+                <ScalarProperty Name="alteruser" ColumnName="alteruser" />
+                <ScalarProperty Name="alterdate" ColumnName="alterdate" />
+                <ScalarProperty Name="createuser" ColumnName="createuser" />
+                <ScalarProperty Name="createdate" ColumnName="createdate" />
+                <ScalarProperty Name="product_point_avg" ColumnName="product_point_avg" />
+                <ScalarProperty Name="product_point" ColumnName="product_point" />
+                <ScalarProperty Name="productid" ColumnName="productid" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="status_bill">
+            <EntityTypeMapping TypeName="BookModel.status_bill">
+              <MappingFragment StoreEntitySet="status_bill">
+                <ScalarProperty Name="status_name" ColumnName="status_name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="types">
+            <EntityTypeMapping TypeName="BookModel.type">
+              <MappingFragment StoreEntitySet="type">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="alteruser" ColumnName="alteruser" />
+                <ScalarProperty Name="alterdate" ColumnName="alterdate" />
+                <ScalarProperty Name="createuser" ColumnName="createuser" />
+                <ScalarProperty Name="createdate" ColumnName="createdate" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="BookModel.user">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="isadmin" ColumnName="isadmin" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="alteruser" ColumnName="alteruser" />
+                <ScalarProperty Name="alterdate" ColumnName="alterdate" />
+                <ScalarProperty Name="createuser" ColumnName="createuser" />
+                <ScalarProperty Name="createdate" ColumnName="createdate" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="confirm_password" ColumnName="confirm_password" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
