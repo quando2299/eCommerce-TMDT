@@ -1,7 +1,4 @@
-﻿@*@model List<BookBook.Data.Product>*@
-@*@model PagedList.IPagedList<BookBook.Data.Product>
-    @using PagedList;
-    @using PagedList.Mvc;*@
+﻿
 @model List<BookBook.Models.ProductByType>
 @{
     ViewBag.Title = "Index";
@@ -21,6 +18,7 @@
                         <li><a href="@Url.Action("ProductByType", "Products", new { id = 4})">Tiểu Thuyết</a></li>
                         <li><a href="@Url.Action("ProductByType", "Products", new { id = 1})">Truyện Ngắn</a></li>
                         <li><a href="@Url.Action("ProductByType", "Products", new { id = 2})">Truyện Dài</a></li>
+                        <li><a href="@Url.Action("ProductByType", "Products", new { id = 6})">Fiction</a></li>
                         <li><a href="#">Ngôn Tình</a></li>
                         <li><a href="#">Kiếm Hiệp</a></li>
                         <li><a href="#">Trinh Thám</a></li>
@@ -91,16 +89,16 @@
             <div class="card h-100">
                 <div class="card-img-top">
                     <div class="img">
-                        <img src="~/Content/image/@item.ProductImage" alt="">
+                        <img src="@item.image" alt="">
                         <div class="txt">
-                            <a asp-controller="Cart" asp-action="Buy" asp-route-id="@item.ProductId"><h3 style="color:aliceblue">MUA NGAY</h3></a>
-                            <a href="@Url.Action("DetailProduct", "Products", new { id = item.ProductId})"><h3 style="color:aliceblue">XEM CHI TIẾT</h3></a>
+                            <a asp-controller="Cart" asp-action="Buy" asp-route-id="@item.id"><h3 style="color:aliceblue">MUA NGAY</h3></a>
+                            <a href="@Url.Action("DetailProduct", "Products", new { id = item.id})"><h3 style="color:aliceblue">XEM CHI TIẾT</h3></a>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
-                    <h4 class="card-title">@item.ProductName </h4>
-                    <p style="        font-size: 20px;color: sandybrown" class="card-text">@item.ProductPrice&nbsp; đ &nbsp;&nbsp;<img src="~/Content/image/hot-icon-1-1.gif" style="width: 45px; height: 30px" /></p>
+                    <h4 class="card-title">@item.name </h4>
+                    <p style="        font-size: 20px;color: sandybrown" class="card-text">@item.price&nbsp; đ &nbsp;&nbsp;<img src="~/Content/image/hot-icon-1-1.gif" style="width: 45px; height: 30px" /></p>
                 </div>
             </div>
         </div>}
@@ -128,8 +126,8 @@
             </div>
             <div class="card-body">
                 <h4 class="card-title">Đừng Sợ Mình Sai </h4>
-                <p style="        font-size: 20px;color: sandybrown" class="card-text">71.000 &nbsp; đ</p>
-                <p style="        font-size: 15px" class="card-text"><strike>90.000 &nbsp; đ</strike></p>
+                <p style="font-size: 20px;color: sandybrown" class="card-text">71.000 &nbsp; đ</p>
+                <p style="font-size: 15px" class="card-text"><strike>90.000 &nbsp; đ</strike></p>
             </div>
         </div>
     </div>

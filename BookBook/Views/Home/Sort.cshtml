@@ -1,4 +1,4 @@
-﻿@model List<BookBook.Data.Product>
+﻿@model List<BookBook.Database.product>
 
 @{
     ViewBag.Title = "Sort";
@@ -8,24 +8,24 @@
 <div class="row">
     @foreach (var item in Model)
     {
-<div class="col-lg-3 col-md-6 mb-4">
+        <div class="col-lg-3 col-md-6 mb-4">
 
-    <div class="card h-100">
-        <div class="card-img-top">
-            <div class="img">
-                <img src="~/Content/image/@item.ProductImage" alt="">
-                <div class="txt">
-                    <a href="@Url.Action("Buy", "Cart", new { id = item.ProductId})"><h3 style="color:aliceblue">MUA NGAY</h3></a>
-                    <a href="@Url.Action("DetailProduct", "Products", new { id = item.ProductId})"><h3 style="color:aliceblue">XEM CHI TIẾT</h3></a>
+            <div class="card h-100">
+                <div class="card-img-top">
+                    <div class="img">
+                        <img src="@item.image" alt="">
+                        <div class="txt">
+                            <a href="@Url.Action("Buy", "Cart", new { id = item.id})"><h3 style="color:aliceblue">MUA NGAY</h3></a>
+                            <a href="@Url.Action("DetailProduct", "Products", new { id = item.id})"><h3 style="color:aliceblue">XEM CHI TIẾT</h3></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">@item.name </h4>
+                    <p style="font-size: 20px;color: sandybrown" class="card-text">@item.price&nbsp; đ &nbsp;&nbsp;<img src="~/Content/image/hot-icon-1-1.gif" style="width: 45px; height: 30px" /></p>
                 </div>
             </div>
-        </div>
-        <div class="card-body">
-            <h4 class="card-title">@item.ProductName </h4>
-            <p style="        font-size: 20px;color: sandybrown" class="card-text">@item.ProductPrice&nbsp; đ &nbsp;&nbsp;<img src="~/Content/image/hot-icon-1-1.gif" style="width: 45px; height: 30px" /></p>
-        </div>
-    </div>
-</div>}
+        </div>}
 </div>
 
 @*giao dien cua cart item*@

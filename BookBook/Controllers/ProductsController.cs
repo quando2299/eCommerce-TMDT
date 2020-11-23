@@ -7,7 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using BookBook.Data;
+//using BookBook.Data;
 using BookBook.Models;
 using BookBook.Database;
 //using PagedList;
@@ -25,7 +25,7 @@ namespace BookBook.Controllers
         {
 
             //var list = context.products.ToList();
-            ViewData["Danhsach"] = context.products.ToList();
+            ViewData["Danhsach"] = context.products.Where(model => model.status != 0).ToList();
             return View();
         }
 
@@ -34,7 +34,7 @@ namespace BookBook.Controllers
         // GET: Products/Create
         public ActionResult Create()
         {
-            ViewBag.TypeId = new SelectList(context.types, "TypeID", "Name");
+            ViewBag.TypeId = new SelectList(context.types, "id", "name");
             return View();
         }
 
@@ -44,12 +44,18 @@ namespace BookBook.Controllers
         {
             if (ModelState.IsValid)
             {
+                product.createdate = DateTime.Now;
+                product.alterdate = DateTime.Now;
+                product.createuser = "Admin";
+                product.alteruser = "Admin";
+                product.status = 1;
+
                 context.products.Add(product);
                 context.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.TypeId = new SelectList(context.types, "TypeID", "Name", product.typeid);
+            ViewBag.TypeId = new SelectList(context.types, "id", "name", product.typeid);
             return View(product);
         }
 
@@ -70,6 +76,7 @@ namespace BookBook.Controllers
             temp.author = product.author;
             temp.price= product.price;
             temp.description = product.description;
+            temp.alterdate = DateTime.Now;
 
             context.Entry(temp).State = EntityState.Modified;
             context.SaveChanges();
@@ -84,13 +91,6 @@ namespace BookBook.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Details(int? id)
-        {
-            var product = context.products.FirstOrDefault(m => m.id == id);
-
-            return View(product);
-        }
-
         public ActionResult DetailProduct(int? id)
         {
             product product = context.products.FirstOrDefault(m => m.id == id);
@@ -103,7 +103,7 @@ namespace BookBook.Controllers
             var list = context.Database.SqlQuery<ProductByType>(@"
                         select p.id, p.name, p.price, p.image
                         from products p
-                            inner join types t on t.id = p.typeid
+                            inner join type t on t.id = p.typeid
                         where t.id = {0}
                         ", id).ToList();
             return View(list);

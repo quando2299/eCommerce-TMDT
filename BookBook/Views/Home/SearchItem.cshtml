@@ -1,4 +1,4 @@
-﻿@model BookBook.Data.Product
+﻿@model BookBook.Database.product
 
 
 @{ 
@@ -14,16 +14,16 @@
     <div class="card h-100">
         <div class="card-img-top">
             <div class="img">
-                <img src="~/Content/image/@Html.DisplayFor(m => m.ProductImage)" alt="" />
+                <img src="@Model.image" alt="" />
                 <div class="txt">
-                    <a href="#"><h3 style="color:aliceblue">MUA NGAY</h3></a>
-                    <a href="@Url.Action("DetailProduct", "Products", new { id = Model.ProductId})"><h3 style="color:aliceblue">XEM CHI TIẾT</h3></a>
+                    <a href="@Url.Action("Buy", "Cart", new { id = Model.id})"><h3 style="color:aliceblue">MUA NGAY</h3></a>
+                    <a href="@Url.Action("DetailProduct", "Products", new { id = Model.id})"><h3 style="color:aliceblue">XEM CHI TIẾT</h3></a>
                 </div>
             </div>
         </div>
         <div class="card-body">
-            <h4 class="card-title">@Html.DisplayFor(m => m.ProductName) </h4>
-            <p style="font-size: 20px;color: sandybrown" class="card-text">@Html.DisplayFor(m => m.ProductPrice)&nbsp; đ </p>
+            <h4 class="card-title">@Html.DisplayFor(m => m.name) </h4>
+            <p style="font-size: 20px;color: sandybrown" class="card-text">@Html.DisplayFor(m => m.price)&nbsp; đ </p>
         </div>
     </div>
 </div>
