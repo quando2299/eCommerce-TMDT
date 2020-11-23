@@ -247,6 +247,7 @@
     <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\CheckOutView.cs" />
     <Compile Include="Models\ProductByType.cs" />
+    <Compile Include="Models\Utils\MailSender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -404,6 +405,7 @@
     <Content Include="Content\lib\jquery\LICENSE.txt" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\StyleSheet1.css" />
+    <Content Include="Content\Template\ConfirmBillForm.html" />
     <Content Include="Database\BookModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>BookModel.edmx</DependentUpon>

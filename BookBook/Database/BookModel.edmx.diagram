@@ -5,17 +5,17 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="1246bcc7915042f5a56658ffdc837620" Name="Diagram1" ZoomLevel="70">
-        <EntityTypeShape EntityType="BookModel.bill" Width="1.5" PointX="3" PointY="15" />
+        <EntityTypeShape EntityType="BookModel.bill" Width="1.5" PointX="3" PointY="10.5" />
         <EntityTypeShape EntityType="BookModel.bill_detail" Width="1.5" PointX="5.25" PointY="5" />
         <EntityTypeShape EntityType="BookModel.comment" Width="1.5" PointX="5.75" PointY="8.875" />
-        <EntityTypeShape EntityType="BookModel.discount" Width="1.5" PointX="3" PointY="10.25" />
+        <EntityTypeShape EntityType="BookModel.discount" Width="1.5" PointX="3" PointY="14.75" />
         <EntityTypeShape EntityType="BookModel.order_detail" Width="1.5" PointX="8.25" PointY="5" />
         <EntityTypeShape EntityType="BookModel.order" Width="1.5" PointX="6" PointY="0.75" />
         <EntityTypeShape EntityType="BookModel.product" Width="1.5" PointX="3" PointY="4.125" />
         <EntityTypeShape EntityType="BookModel.rating" Width="1.5" PointX="7.75" PointY="8.875" />
         <EntityTypeShape EntityType="BookModel.status_bill" Width="1.5" PointX="9.75" PointY="8.875" />
         <EntityTypeShape EntityType="BookModel.type" Width="1.5" PointX="0.75" PointY="5" />
-        <EntityTypeShape EntityType="BookModel.user" Width="1.5" PointX="0.75" PointY="14.375" />
+        <EntityTypeShape EntityType="BookModel.user" Width="1.5" PointX="0.75" PointY="9.875" />
         <AssociationConnector Association="BookModel.FK__bill__userid__4CA06362" />
         <AssociationConnector Association="BookModel.FK__bill_deta__billi__4F7CD00D" />
         <AssociationConnector Association="BookModel.FK__bill_deta__disco__5070F446" />

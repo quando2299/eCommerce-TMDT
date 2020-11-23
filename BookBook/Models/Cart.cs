@@ -7,11 +7,11 @@ namespace BookBook.Models
 {
     public class Cart
     {
-        public int ProductId { get; set; }
-        public string ProductName { get; set; }
-        public int Quantity { get; set; }
-        public int ProductPrice { get; set; }
-        public string ProductImage { get; set; }
-        public int Total { get; set; }
+        public int id { get; set; }
+        public string name { get; set; }
+        public int quantity { get; set; }
+        public int price { get; set; }
+        public string image { get; set; }
+        public int total { get; set; }
     }
 }

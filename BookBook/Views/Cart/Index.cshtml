@@ -1,4 +1,4 @@
-﻿@model BookBook.Data.Address
+﻿@model BookBook.Database.user
 @{
     ViewData["Title"] = "Cart";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,6 +6,7 @@
 }
 
 <h3>Giỏ hàng của bạn :</h3>
+@Html.HiddenFor(model => model.id)
 @{
     if (Session["Cart"] != null)
     {
@@ -21,7 +22,7 @@
         </tr>
         @foreach (var item in Session["Cart"] as List<BookBook.Models.Cart>)
         {
-            sum += item.Quantity * item.ProductPrice;
+            sum += item.quantity * item.price;
             ViewBag.Total = sum;
         }
 
@@ -29,13 +30,13 @@
         {
         <tr>
 
-            <td><a href="@Url.Action("Remove", "Cart", new { id = item.ProductId })">Xóa</a></td>
-            <td>@item.ProductId</td>
-            <td>@item.ProductName</td>
-            <td><img src="~/Content/image/@item.ProductImage" width="80" height="80" /> </td>
-            <td>@item.ProductPrice</td>
-            <td>@item.Quantity</td>
-            <td>@(item.ProductPrice * item.Quantity)</td>
+            <td><a href="@Url.Action("Remove", "Cart", new { id = item.id })">Xóa</a></td>
+            <td>@item.id</td>
+            <td>@item.name</td>
+            <td><img src="@item.image" width="80" height="80" /> </td>
+            <td>@item.price</td>
+            <td>@item.quantity</td>
+            <td>@(item.price * item.quantity)</td>
         </tr>
         }
 
@@ -57,19 +58,13 @@
             <div class="row">
                 <div class="col-7">
                     <div class="row">
-                        @*<label class="col-3"> Địa chỉ :</label>
-                            <input name="address" class="col-7" />*@
-
-                        @Html.LabelFor(m => m.Address1, new { @class = "col-3" })
-                        @Html.TextBoxFor(m => m.Address1, new { @class = "col-7" })
+                        @Html.LabelFor(m => m.address, new { @class = "col-3" })
+                        @Html.TextBoxFor(m => m.address, new { @class = "col-7" })
                     </div>
                     <span asp-validation-for="Address" class="text-danger"></span> <br />
                     <div class="row mt-3">
-                        @*<label class="col-3"> Số điện thoại :</label>
-                            <input name="phone" class="col-7" />*@
-
-                        @Html.LabelFor(m => m.Phone, new { @class = "col-3" })
-                        @Html.TextBoxFor(m => m.Phone, new { @class = "col-7" })
+                        @Html.LabelFor(m => m.phone, new { @class = "col-3" })
+                        @Html.TextBoxFor(m => m.phone, new { @class = "col-7" })
                     </div>
 
                     <span asp-validation-for="PhoneNumber" class="text-danger"></span> <br />
