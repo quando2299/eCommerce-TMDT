@@ -17,6 +17,8 @@ namespace BookBook.Controllers
         // GET: Cart
         public ActionResult Index()
         {
+            if (Session["Account"] == null)
+                return RedirectToAction("Login", "Accounts");
             return View();
         }
 
@@ -30,7 +32,7 @@ namespace BookBook.Controllers
                     from Users u
                         inner join Bill b on b.UserID = u.UserId
                 ", (int)Session["Account"]).ToList();
-            
+
             return View(list);
         }
 
@@ -108,7 +110,7 @@ namespace BookBook.Controllers
             var _user = context.users.FirstOrDefault(m => m.id == userID);
 
             int result = list.Sum(item => item.price) * (100 - (int)CheckDiscount(code)) / 100;
-            
+
             CheckOutView view = new CheckOutView();
             view.FullName = _user.firstname + " " + _user.lastname;
             view.Total = result;
@@ -123,6 +125,17 @@ namespace BookBook.Controllers
         public ActionResult ConfirmCheckOut(CheckOutView view)
         {
             //eCommerceContext db = new eCommerceContext();
+            BookEntity context = new BookEntity();
+
+            var user = context.users.Find((int)Session["Account"]);
+            var userName = user.firstname + " " + user.lastname;
+
+            string content = System.IO.File.ReadAllText(System.Web.HttpContext.Current.Server.MapPath("~/Content/Template/ConfirmBillForm.html"));
+            content = content.Replace("{{username}}", userName);
+
+            MailSender.SendEmail(user.email, userName, "Xác nhận đơn hàng !", content, null);
+
+
             //var user = db.Users.FirstOrDefault(m => m.UserId == view.UserID);
             //Bill bill = new Bill();
             //bill.UserID = view.UserID;
@@ -137,35 +150,43 @@ namespace BookBook.Controllers
             //db.Bills.Add(bill);
             //db.SaveChanges();
 
-            //BillDetail billDetail = new BillDetail();
+            order order = new order();
+            order.userid = user.id;
+            //order.total = view.Total;
+            order.status = 1;
+            order.createdate = DateTime.Now;
+            order.createuser = view.FullName;
+            order.alterdate = DateTime.Now;
+            order.alteruser = view.FullName;
 
-            //foreach (var item in Session["Cart"] as List<Cart>)
-            //{
-            //    billDetail.BillID = bill.ID;
-            //    billDetail.ProductID = item.ProductId;
-            //    billDetail.Quantity = item.Quantity;
-            //    billDetail.Status = 1;
-            //    billDetail.CreateDate = DateTime.Now;
-            //    billDetail.CreateUser = user.FirstName + " " + user.LastName;
-            //    billDetail.UpdateDate = DateTime.Now;
-            //    billDetail.UpdateUser = user.FirstName + " " + user.LastName;
+            int total = 0;
+            foreach(var item in Session["Cart"] as List<Cart>)
+            {
+                total += item.quantity * item.price;
+            }
 
-            //    db.BillDetails.Add(billDetail);
-            //    db.SaveChanges();
-            //}
+            order.total = total;
 
-            //Session.Remove("Cart");
-            BookEntity context = new BookEntity();
-            var user = context.users.Find((int)Session["Account"]);
-            var userName = user.firstname + " " + user.lastname;
+            context.orders.Add(order);
+            context.SaveChanges();
 
-            string content = System.IO.File.ReadAllText(System.Web.HttpContext.Current.Server.MapPath("~/Content/Template/ConfirmBillForm.html"));
-            content = content.Replace("{{username}}", userName);
+            order_detail detail = new order_detail();
 
-            MailSender.SendEmail(user.email, userName, "Xác nhận đơn hàng !", content, null);
+            foreach (var item in Session["Cart"] as List<Cart>)
+            {
+                detail.orderid = order.id;
+                detail.productid = item.id;
+                detail.discountid = view.DiscountID;
+                detail.quantity = item.quantity;
 
+                context.order_detail.Add(detail);
+                context.SaveChanges();
+            }
+
+            Session.Remove("Cart");
             return RedirectToAction("Index", "Home");
         }
+
 
         public double CheckDiscount(string Code)
         {

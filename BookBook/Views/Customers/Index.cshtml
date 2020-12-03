@@ -1,0 +1,49 @@
+﻿@model IEnumerable<BookBook.Database.order>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Mã đon hàng")
+        </th>
+        <th>
+            @Html.DisplayName("Tổng tiền")
+        </th>
+        <th>
+            @Html.DisplayName("Ngày đặt hàng")
+        </th>
+        <th>
+            @Html.DisplayName("Trạng thái đơn hàng")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.total)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.createdate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.status)
+            </td>
+            <td>
+                <a href="@Url.Action("Detail", "Customers", new { id = item.id})">Edit</a> |
+                <a href="@Url.Action("Cancel", "Customers", new { id = item.id})">Delete</a>
+            </td>
+        </tr>
+    }
+
+</table>

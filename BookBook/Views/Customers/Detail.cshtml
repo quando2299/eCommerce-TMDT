@@ -1,0 +1,39 @@
+﻿@model IEnumerable<BookBook.Models.OrderDetailModel>
+
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detail</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Sản phẩm")
+        </th>
+        <th>
+            @Html.DisplayName("Số lượng")
+        </th>
+        <th>
+            @Html.DisplayName("Giá tiền")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.total)
+            </td>
+        </tr>
+    }
+
+</table>

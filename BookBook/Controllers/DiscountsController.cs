@@ -101,8 +101,8 @@ namespace BookBook.Controllers
                         var temp = context.discounts.Find(_discount.id);
 
                         temp.name = (_discount.name != null || _discount.name != "") ? _discount.name : temp.name;
-                        temp.discount_percent = (_discount.discount_percent != null) ? _discount.discount_percent : temp.discount_percent;
-                        temp.quantity = (_discount.quantity != null) ? _discount.quantity : temp.quantity;
+                        temp.discount_percent = (_discount.discount_percent != 0) ? _discount.discount_percent : temp.discount_percent;
+                        temp.quantity = (_discount.quantity != 0) ? _discount.quantity : temp.quantity;
                         temp.datevalid = (_discount.datevalid != null) ? _discount.datevalid : temp.datevalid;
 
                         context.Entry(temp).State = EntityState.Modified;

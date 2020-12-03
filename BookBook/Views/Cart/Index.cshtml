@@ -10,48 +10,48 @@
 @{
     if (Session["Cart"] != null)
     {
-    <table class="table-bordered table">
-        <tr>
-            <th>Option</th>
-            <th>Mã sách</th>
-            <th>Tên</th>
-            <th>Hình ảnh</th>
-            <th>Giá tiền</th>
-            <th>Só lượng</th>
-            <th>Tổng tiền</th>
-        </tr>
-        @foreach (var item in Session["Cart"] as List<BookBook.Models.Cart>)
-        {
-            sum += item.quantity * item.price;
-            ViewBag.Total = sum;
-        }
+        <table class="table-bordered table">
+            <tr>
+                <th>Option</th>
+                <th>Mã sách</th>
+                <th>Tên</th>
+                <th>Hình ảnh</th>
+                <th>Giá tiền</th>
+                <th>Só lượng</th>
+                <th>Tổng tiền</th>
+            </tr>
+            @foreach (var item in Session["Cart"] as List<BookBook.Models.Cart>)
+            {
+                sum += item.quantity * item.price;
+                ViewBag.Total = sum;
+            }
 
-        @foreach(var item in Session["Cart"] as List<BookBook.Models.Cart>  )
-        {
-        <tr>
+            @foreach (var item in Session["Cart"] as List<BookBook.Models.Cart>)
+            {
+                <tr>
 
-            <td><a href="@Url.Action("Remove", "Cart", new { id = item.id })">Xóa</a></td>
-            <td>@item.id</td>
-            <td>@item.name</td>
-            <td><img src="@item.image" width="80" height="80" /> </td>
-            <td>@item.price</td>
-            <td>@item.quantity</td>
-            <td>@(item.price * item.quantity)</td>
-        </tr>
-        }
-
-
-        <tr>
-            <td align="right" colspan="6">Tổng hóa đơn</td>
-            <td> @sum </td>
-        </tr>
-        <tr id="discountRow">
-            <td align="right" colspan="6">Giá khuyến mãi</td>
-            <td id="newPrice"></td>
-        </tr>
+                    <td><a href="@Url.Action("Remove", "Cart", new { id = item.id })">Xóa</a></td>
+                    <td>@item.id</td>
+                    <td>@item.name</td>
+                    <td><img src="@item.image" width="80" height="80" /> </td>
+                    <td>@item.price</td>
+                    <td>@item.quantity</td>
+                    <td>@(item.price * item.quantity)</td>
+                </tr>
+            }
 
 
-    </table>
+            <tr>
+                <td align="right" colspan="6">Tổng hóa đơn</td>
+                <td> @sum </td>
+            </tr>
+            <tr id="discountRow">
+                <td align="right" colspan="6">Giá khuyến mãi</td>
+                <td id="newPrice"></td>
+            </tr>
+
+
+        </table>
 
         using (Html.BeginForm("CheckOut", "Cart"))
         {

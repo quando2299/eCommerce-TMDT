@@ -63,7 +63,7 @@
                                 if (email != null)
                                 {   // Đăng nhập => Hiện email và nút đăng xuất
                                     <div class="header__top__right__auth">
-                                        <a href=""><i class="fa fa-user-circle ml-lg-3"></i>@email</a>
+                                        <a href="@Url.Action("Index", "Customers")"><i class="fa fa-user-circle ml-lg-3"></i>@email</a>
                                     </div>
                                     <div class="header__top__right__auth">
                                         <a href="@Url.Action("Logout", "Accounts")"><i class="fa fa-sign-out ml-lg-3"></i>Đăng xuất</a>
