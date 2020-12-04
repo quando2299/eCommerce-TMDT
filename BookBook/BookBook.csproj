@@ -147,8 +147,7 @@
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\DiscountsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ManagerController.cs" />
-    <Compile Include="Controllers\ManageUserController.cs" />
+    <Compile Include="Controllers\PersonalController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\TypesController.cs" />
     <Compile Include="Database\bill.cs">
@@ -2053,6 +2052,7 @@
     <Content Include="Content\image\tinhvarac.jpg" />
     <Content Include="Content\image\tranlot.jpg" />
     <Content Include="Content\image\tukiamthi.jpg" />
+    <Content Include="Content\image\user-placeholder.png" />
     <Content Include="Content\image\vuivekhongquaunha.jpg" />
     <Content Include="Content\img\5138.jpg" />
     <Content Include="Content\img\banner\banner-1.jpg" />
@@ -2297,26 +2297,16 @@
     <Content Include="Views\Accounts\Login.cshtml" />
     <Content Include="Views\Accounts\Register.cshtml" />
     <Content Include="Views\Home\SearchItem.cshtml" />
-    <Content Include="Views\Products\Create.cshtml" />
-    <Content Include="Views\Products\Edit.cshtml" />
-    <Content Include="Views\Products\Index.cshtml" />
-    <Content Include="Views\Products\DetailProduct.cshtml" />
     <Content Include="Views\Home\Sort.cshtml" />
     <Content Include="Views\Types\Create.cshtml" />
     <Content Include="Views\Types\Edit.cshtml" />
     <Content Include="Views\Types\Index.cshtml" />
-    <Content Include="Views\Products\ProductByType.cshtml" />
-    <Content Include="Views\ManageUser\Index.cshtml" />
-    <Content Include="Views\ManageUser\Create.cshtml" />
-    <Content Include="Views\ManageUser\Edit.cshtml" />
     <Content Include="Views\Discounts\Create.cshtml" />
     <Content Include="Views\Discounts\Edit.cshtml" />
     <Content Include="Views\Discounts\Index.cshtml" />
-    <Content Include="Views\Manager\Index.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Cart\CheckOut.cshtml" />
     <Content Include="Views\Cart\ManageBill.cshtml" />
-    <Content Include="Views\Manager\Detail.cshtml" />
     <Content Include="Views\Customers\Index.cshtml" />
     <Content Include="Views\Customers\Detail.cshtml" />
     <Content Include="Views\Shared\_PaymentSuccess.cshtml" />
@@ -2328,6 +2318,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\Personal\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

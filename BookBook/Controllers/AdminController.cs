@@ -18,7 +18,7 @@ namespace BookBook.Controllers
             return View(list);
         }
 
-        public ActionResult Product()
+            public ActionResult Product()
         {
             BookEntity context = new BookEntity();
             var list = context.Database.SqlQuery<ProductsModel>(
@@ -36,6 +36,56 @@ namespace BookBook.Controllers
                 from orders o
 	                inner join users u on u.id = o.userid").ToList();
             return View(list);
+        }
+
+        public ActionResult CreateUser()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateUser(user user)
+        {
+            if (user.password != user.confirm_password)
+            {
+                return View(user);
+            }
+
+            BookEntity context = new BookEntity();
+
+            using (var transaction = context.Database.BeginTransaction())
+            {
+                try
+                {
+                    user newuser = new user();
+                    newuser.firstname = user.firstname;
+                    newuser.lastname = user.lastname;
+                    newuser.address = user.address;
+                    newuser.email = user.email;
+                    newuser.phone = user.phone;
+                    newuser.password = user.password;
+                    newuser.confirm_password = user.confirm_password;
+                    newuser.createuser = "Admin";
+                    newuser.createdate = DateTime.Now;
+                    newuser.alteruser = "Admin";
+                    newuser.alterdate = DateTime.Now;
+                    newuser.status = 1;
+                    newuser.isadmin = 0;
+
+                    context.users.Add(user);
+                    context.SaveChanges();
+                    transaction.Commit();
+
+
+                    return View("Index", "Admin");
+                }
+                catch (Exception e)
+                {
+                    transaction.Rollback();
+                    ViewBag.ErrorText = e.Message.ToString();
+                    return View("Index", "Admin");
+                }
+            }
         }
     }
 }

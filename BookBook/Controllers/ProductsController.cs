@@ -39,7 +39,7 @@ namespace BookBook.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult Create(product product)
         {
             if (ModelState.IsValid)
