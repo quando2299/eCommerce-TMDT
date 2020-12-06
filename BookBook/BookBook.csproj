@@ -2314,11 +2314,13 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\Product.cshtml" />
     <Content Include="Views\Admin\Orders.cshtml" />
+    <Content Include="Views\Personal\Index.cshtml" />
+    <Content Include="Views\Personal\EditProfile.cshtml" />
+    <Content Include="Views\Customers\Bill.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Base\" />
-    <Folder Include="Views\Personal\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

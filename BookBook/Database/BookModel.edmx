@@ -142,7 +142,7 @@
           <Property Name="phone" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="password" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="confirm_password" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="address" Type="text" Nullable="false" />
+          <Property Name="address" Type="nvarchar(max)" />
           <Property Name="createdate" Type="datetime" />
           <Property Name="createuser" Type="varchar" MaxLength="50" />
           <Property Name="alterdate" Type="datetime" />
@@ -513,7 +513,7 @@
           <Property Name="phone" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="password" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="confirm_password" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="address" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="createdate" Type="DateTime" Precision="3" />
           <Property Name="createuser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="alterdate" Type="DateTime" Precision="3" />

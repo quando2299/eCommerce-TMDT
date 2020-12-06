@@ -28,7 +28,7 @@ namespace BookBook.Controllers
 
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult Create(type _type)
         {
             if (ModelState.IsValid)
@@ -62,7 +62,7 @@ namespace BookBook.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult Edit(type _type)
         {
             if (ModelState.IsValid)

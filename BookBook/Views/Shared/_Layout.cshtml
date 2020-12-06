@@ -57,31 +57,34 @@
                 <div class="col-lg-7">
                     <div class="header__cart">
                         @*<ul>*@
-                            @{
-                                // Kiểm tra đã đăng nhập hay chưa
-                                var email = Session["Email"];
-                                if (email != null)
-                                {   // Đăng nhập => Hiện email và nút đăng xuất
-                                    <div class="header__top__right__auth">
-                                        <a href="@Url.Action("Index", "Customers")"><i class="fa fa-user-circle ml-lg-3"></i>@email</a>
-                                    </div>
-                                    <div class="header__top__right__auth">
-                                        <a href="@Url.Action("Logout", "Accounts")"><i class="fa fa-sign-out ml-lg-3"></i>Đăng xuất</a>
-                                    </div>
-                                }
-                                else
-                                {   // Chưa đăng nhập => Hiện nút đăng nhập và đăng ký
-                                    <div class="header__top__right__auth">
-                                        <a href="@Url.Action("Login", "Accounts")"><i class="fa fa-user-circle ml-lg-3"></i> Đăng nhập</a>
-                                    </div>
-                                    <div class="header__top__right__auth">
-                                        <a href="@Url.Action("Register", "Accounts")"><i class="fa fa-user-plus ml-lg-3"></i> Đăng ký</a>
-                                    </div>
-                                }
+                        @{
+                            // Kiểm tra đã đăng nhập hay chưa
+                            var email = Session["Email"];
+                            if (email != null)
+                            {   // Đăng nhập => Hiện email và nút đăng xuất
+                                <div class="header__top__right__auth">
+                                    <a href="@Url.Action("Index", "Personal")"><i class="fa fa-user-circle ml-lg-3"></i>@email</a>
+                                </div>
+                                <div class="header__top__right__auth">
+                                    <a href="@Url.Action("Index", "Customers")"><i class="fa fa-user-circle ml-lg-3"></i>Đơn hàng</a>
+                                </div>
+                                <div class="header__top__right__auth">
+                                    <a href="@Url.Action("Logout", "Accounts")"><i class="fa fa-sign-out ml-lg-3"></i>Đăng xuất</a>
+                                </div>
                             }
-                            <div class="header__top__right__auth">
-                                <a href="@Url.Action("Index", "Cart")"><i class="fa fa-shopping-cart ml-lg-3"></i> Giỏ hàng</a>
-                            </div>
+                            else
+                            {   // Chưa đăng nhập => Hiện nút đăng nhập và đăng ký
+                                <div class="header__top__right__auth">
+                                    <a href="@Url.Action("Login", "Accounts")"><i class="fa fa-user-circle ml-lg-3"></i> Đăng nhập</a>
+                                </div>
+                                <div class="header__top__right__auth">
+                                    <a href="@Url.Action("Register", "Accounts")"><i class="fa fa-user-plus ml-lg-3"></i> Đăng ký</a>
+                                </div>
+                            }
+                        }
+                        <div class="header__top__right__auth">
+                            <a href="@Url.Action("Index", "Cart")"><i class="fa fa-shopping-cart ml-lg-3"></i> Giỏ hàng</a>
+                        </div>
                         @*</ul>*@
                     </div>
                 </div>
@@ -98,7 +101,7 @@
                 <li><a href="#">Tin tức</a></li>
                 <li><a href="#">Hỏi đáp</a></li>
                 <li><a href="#">Liên hệ</a></li>
-                <li><a href="@Url.Action("Index", "Manager")">Quản Lí</a></li>
+                <li><a href="@Url.Action("Bill", "Customers")">Hóa Đơn</a></li>
             </ul>
         </div>
     </div>
