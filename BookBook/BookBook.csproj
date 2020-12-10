@@ -210,6 +210,9 @@
     <Compile Include="Models\ProductByType.cs" />
     <Compile Include="Models\ProductsModel.cs" />
     <Compile Include="Models\Utils\MailSender.cs" />
+    <Compile Include="Models\Utils\Utils.cs" />
+    <Compile Include="Models\Utils\VnPayCompare.cs" />
+    <Compile Include="Models\Utils\VnPayLibrary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
