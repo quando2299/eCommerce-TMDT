@@ -1,0 +1,68 @@
+﻿@model BookBook.Database.product
+
+@{
+    ViewBag.Title = "DetailProduct";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>Trang Chủ > Chi tiết sản phẩm</h3>
+<br />
+
+<div class="row">
+
+    <div class="col-6 col-md-4">
+        <img src="@Model.image" width="100%" height="400px" atl="image" />
+    </div>
+    <div class="col-12 col-md-8">
+        <dl class="row">
+            <div style="font-size: 30px" class="col-sm-10"><b>@Html.DisplayFor(model => model.name)</b></div>
+            <div class="w-100"></div>
+            <br />
+            <div class="col-sm-4">Tác Giả : </div>
+            <div style=" color:chocolate " class="col-sm-6">@Html.DisplayFor(model => model.author)</div>
+            <div class="w-100"></div>
+
+            <div class="col-sm-4">Nhà Cung Cấp :</div>
+            <div style=" color:chocolate " class="col-sm-6">@Html.DisplayFor(model => model.publishing_company)</div>
+            <div class="w-100"></div>
+
+            <br>
+            <div style="font-size: 25px; color:darkred" class="col-sm-10">@Html.DisplayFor(model => model.price)  &nbsp; đ</div>
+            <div class="w-100"></div>
+
+            <br />
+            <div class="col-sm-10"><b>@Html.DisplayFor(model => model.description)</b></div>
+            <div class="w-100"></div>
+            <br />
+            <br />
+
+            <div class="col-sm-4">
+                <a class="btn btn-warning" href="@Url.Action("Index", "Cart")">Thêm vào giỏ hàng</a>
+            </div>
+            <div class="col-sm-6">
+                <a class="btn btn-success" href="@Url.Action("CheckOut", "Cart")">Thanh toán</a>
+            </div>
+        </dl>
+    </div>
+
+    <h3>Customer Reviews</h3><!-- Start BawkBox Code-->
+    <script data-sil-id="5fd50731bf292e00127cbdab">
+        var loadWidget = function () {
+            var d = document, w = window, l = window.location, p = l.protocol == "file:" ? "http://" : "//"; if (!w.WS) w.WS = {}; c = w.WS;
+            var m = function (t, o) {
+                var e = d.getElementsByTagName("script"); e = e[e.length - 1];
+                var n = d.createElement(t); if (t == "script") { n.async = true; } for (k in o) n[k] = o[k]; e.parentNode.insertBefore(n, e)
+            }; m("script", { src: p + "bawkbox.com/widget/star-rating/5fd50731bf292e00127cbdab?page=" + encodeURIComponent(l + ''), type: 'text/javascript' }); c.load_net = m;
+        };
+        if (window.Squarespace) {
+            document.addEventListener('DOMContentLoaded', loadWidget);
+            setTimeOut(function () {
+                document.addEventListener('DOMContentLoaded', loadWidget);
+            }, 3000)
+        } else { loadWidget() }
+    </script>
+    <script type="application/ld+json" src="/widget/star-rating/5fd50731bf292e00127cbdab/microdata"></script>
+    <div class="sil-widget-star-rating sil-widget" id="sil-widget-5fd50731bf292e00127cbdab">
+        <a href="//bawkbox.com/install/star-rating">Customer Reviews</a>
+    </div><!-- End BawkBox Code-->
+</div>

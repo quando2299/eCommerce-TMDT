@@ -51,6 +51,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="log4net, Version=2.0.12.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.12\lib\net45\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
@@ -147,6 +150,7 @@
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\DiscountsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\PersonalController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\TypesController.cs" />
@@ -206,6 +210,7 @@
     <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\CheckOutView.cs" />
     <Compile Include="Models\OrderDetailModel.cs" />
+    <Compile Include="Models\OrderInfo.cs" />
     <Compile Include="Models\OrdersModel.cs" />
     <Compile Include="Models\ProductByType.cs" />
     <Compile Include="Models\ProductsModel.cs" />
@@ -2320,10 +2325,13 @@
     <Content Include="Views\Personal\Index.cshtml" />
     <Content Include="Views\Personal\EditProfile.cshtml" />
     <Content Include="Views\Customers\Bill.cshtml" />
+    <Content Include="Views\Products\DetailProduct.cshtml" />
+    <Content Include="Views\Products\ProductByType.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\Payment\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
