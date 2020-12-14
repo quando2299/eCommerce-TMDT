@@ -18,7 +18,7 @@ namespace BookBook.Controllers
             return View(list);
         }
 
-            public ActionResult Product()
+        public ActionResult Product()
         {
             BookEntity context = new BookEntity();
             var list = context.Database.SqlQuery<ProductsModel>(

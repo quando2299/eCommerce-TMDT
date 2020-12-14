@@ -19,7 +19,6 @@ namespace BookBook.Controllers
             return View();
         }
 
-
         [HttpPost]
         public ActionResult Login(user user)
         {

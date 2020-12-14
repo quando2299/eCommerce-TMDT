@@ -17,6 +17,7 @@ namespace BookBook.Controllers
         // GET: Payment
         public ActionResult Index()
         {
+
             OrderInfo orderInfo = new OrderInfo();
             orderInfo.Amount = 10000;
             orderInfo.OrderDescription = "Noi dung thanh toan:" + DateTime.Now.ToString("yyyyMMddHHmmss");
@@ -27,7 +28,7 @@ namespace BookBook.Controllers
         public ActionResult Index(OrderInfo orderInfo)
         {
             //Get Config Info
-            string vnp_Returnurl = "http://localhost:50692/Payment/Complete"; //URL nhan ket qua tra ve 
+            string vnp_Returnurl = "http://quando2299-001-site1.dtempurl.com/Payment/Complete"; //URL nhan ket qua tra ve 
             string vnp_Url = "http://sandbox.vnpayment.vn/paymentv2/vpcpay.html"; //URL thanh toan cua VNPAY 
             string vnp_TmnCode = "OYI7MIDT"; //Ma website
             string vnp_HashSecret = "VJARUOFILYZXWEPPYBOQAXTFGHKDQOAS"; //Chuoi bi mat
