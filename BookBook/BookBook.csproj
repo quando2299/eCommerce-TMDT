@@ -215,9 +215,9 @@
     <Compile Include="Models\ProductByType.cs" />
     <Compile Include="Models\ProductsModel.cs" />
     <Compile Include="Models\Utils\MailSender.cs" />
-    <Compile Include="Models\Utils\Utils.cs" />
-    <Compile Include="Models\Utils\VnPayCompare.cs" />
-    <Compile Include="Models\Utils\VnPayLibrary.cs" />
+    <Compile Include="Models\VNPay\Utils.cs" />
+    <Compile Include="Models\VNPay\VnPayCompare.cs" />
+    <Compile Include="Models\VNPay\VnPayLibrary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -2262,6 +2262,7 @@
     <Content Include="Content\assets\plugins\global\fonts\summernote\summernote.eot" />
     <Content Include="Content\assets\plugins\global\fonts\summernote\summernote.ttf" />
     <Content Include="Content\assets\plugins\global\fonts\summernote\summernote.woff" />
+    <Content Include="log4net.config" />
     <None Include="Properties\PublishProfiles\bookbook - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\bookbook - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\ktpm2021 - FTP.pubxml" />
@@ -2327,11 +2328,11 @@
     <Content Include="Views\Customers\Bill.cshtml" />
     <Content Include="Views\Products\DetailProduct.cshtml" />
     <Content Include="Views\Products\ProductByType.cshtml" />
+    <Content Include="Views\Payment\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Base\" />
-    <Folder Include="Views\Payment\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

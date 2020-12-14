@@ -17,23 +17,7 @@ namespace BookBook.Controllers
         // GET: Cart
         public ActionResult Index()
         {
-            if (Session["Account"] == null)
-                return RedirectToAction("Login", "Accounts");
             return View();
-        }
-
-        public ActionResult ManageBill()
-        {
-            //eCommerceContext db = new eCommerceContext();
-            BookEntity context = new BookEntity();
-
-            var list = context.Database.SqlQuery<BillView>(@"
-                    select concat(u.FirstName, ' ', u.LastName) as FullName, b.Total, b.CreateDate, b.CreateUser, b.Status, b.ID
-                    from Users u
-                        inner join Bill b on b.UserID = u.UserId
-                ", (int)Session["Account"]).ToList();
-
-            return View(list);
         }
 
         public ActionResult Buy(int id)
@@ -134,21 +118,6 @@ namespace BookBook.Controllers
             content = content.Replace("{{username}}", userName);
 
             MailSender.SendEmail(user.email, userName, "Xác nhận đơn hàng !", content, null);
-
-
-            //var user = db.Users.FirstOrDefault(m => m.UserId == view.UserID);
-            //Bill bill = new Bill();
-            //bill.UserID = view.UserID;
-            //bill.Total = view.Total;
-            //bill.DiscountID = view.DiscountID;
-            //bill.Status = 1;
-            //bill.CreateDate = DateTime.Now;
-            //bill.CreateUser = user.FirstName + " " + user.LastName;
-            //bill.UpdateDate = DateTime.Now;
-            //bill.UpdateUser = user.FirstName + " " + user.LastName;
-
-            //db.Bills.Add(bill);
-            //db.SaveChanges();
 
             order order = new order();
             order.userid = user.id;

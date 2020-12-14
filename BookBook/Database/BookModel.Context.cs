@@ -36,5 +36,7 @@ namespace BookBook.Database
         public virtual DbSet<status_bill> status_bill { get; set; }
         public virtual DbSet<type> types { get; set; }
         public virtual DbSet<user> users { get; set; }
+
+        public System.Data.Entity.DbSet<BookBook.Models.OrderInfo> OrderInfoes { get; set; }
     }
 }
