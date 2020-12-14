@@ -2154,6 +2154,11 @@
     <Content Include="Content\lib\jquery\LICENSE.txt" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\StyleSheet1.css" />
+    <Content Include="Content\Styles\bootstrap.min.css" />
+    <Content Include="Content\Styles\js\ie-emulation-modes-warning.js" />
+    <Content Include="Content\Styles\js\ie10-viewport-bug-workaround.js" />
+    <Content Include="Content\Styles\js\ie8-responsive-file-warning.js" />
+    <Content Include="Content\Styles\jumbotron-narrow.css" />
     <Content Include="Content\Template\ConfirmBillForm.html" />
     <Content Include="Database\BookModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -2318,7 +2323,6 @@
     <Content Include="Views\Cart\ManageBill.cshtml" />
     <Content Include="Views\Customers\Index.cshtml" />
     <Content Include="Views\Customers\Detail.cshtml" />
-    <Content Include="Views\Shared\_PaymentSuccess.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\Product.cshtml" />
@@ -2329,6 +2333,7 @@
     <Content Include="Views\Products\DetailProduct.cshtml" />
     <Content Include="Views\Products\ProductByType.cshtml" />
     <Content Include="Views\Payment\Index.cshtml" />
+    <Content Include="Views\Payment\Complete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

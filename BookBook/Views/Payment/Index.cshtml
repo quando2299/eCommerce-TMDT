@@ -6,11 +6,10 @@
 }
 
 
-
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head runat="server">
     <title>VNPAY DEMO</title>
-    <link href="Styles/bootstrap.min.css" rel="stylesheet" />
+    
 </head>
 <body>
     <div class="container">
@@ -19,24 +18,14 @@
             <h3 class="text-muted">VNPAY DEMO</h3>
         </div>
         <div class="table-responsive">
-            <form id="form1" runat="server">
+            @using (Html.BeginForm("Index", "Payment"))
+            {
                 <h3>Tạo yêu cầu thanh toán </h3>
-
-                <div class="form-group">
-                    <label>Loại hàng hóa (*) </label>
-                    <asp:DropDownList ID="orderCategory" runat="server" CssClass="form-control">
-                        <asp:ListItem Value="topup" Text="Nạp tiền điện thoại"></asp:ListItem>
-                        <asp:ListItem Value="billpayment" Text="Thanh toán hóa đơn"></asp:ListItem>
-                        <asp:ListItem Value="fashion" Text="Thời trang"></asp:ListItem>
-                        <asp:ListItem Value="other" Text="Thanh toán trực tuyến"></asp:ListItem>
-                    </asp:DropDownList>
-                </div>
 
                 <div class="form-group">
                     <label>Số tiền (*)</label>
                     @*<asp:TextBox ID="Amount" runat="server" CssClass="form-control"></asp:TextBox>*@
                     @Html.TextBoxFor(m => m.Amount, new { htmlAttributes = new { @class = "form-control" } })
-
                 </div>
                 <div class="form-group">
                     <label>Nội dung thanh toán (*)</label>
@@ -45,47 +34,27 @@
                 </div>
                 <div class="form-group">
                     <label>Ngân hàng</label>
-                    <asp:DropDownList ID="bank" runat="server" CssClass="form-control">
-                        <asp:ListItem Value="" Text="Không chọn"></asp:ListItem>
-                        <asp:ListItem Value="NCB" Text="Ngan hang NCB"></asp:ListItem>
-                        <asp:ListItem Value="SACOMBANK" Text="Ngan hang SacomBank"></asp:ListItem>
-                        <asp:ListItem Value="EXIMBANK" Text="Ngan hang EximBank"></asp:ListItem>
-                        <asp:ListItem Value="MSBANK" Text="Ngan hang MSBANK"></asp:ListItem>
-                        <asp:ListItem Value="NAMABANK" Text="Ngan hang NamABank "></asp:ListItem>
-                        <asp:ListItem Value="VISA" Text="The quoc te VISA/MASTER"></asp:ListItem>
-                        <asp:ListItem Value="VNMART" Text="Vi dien tu VnMart"></asp:ListItem>
-                        <asp:ListItem Value="VIETINBANK" Text="Ngan hang Vietinbank"></asp:ListItem>
-                        <asp:ListItem Value="VIETCOMBANK" Text="Ngan hang VCB"></asp:ListItem>
-                        <asp:ListItem Value="HDBANK" Text="Ngan hang HDBank"></asp:ListItem>
-                        <asp:ListItem Value="DONGABANK" Text="Ngan hang Dong A"></asp:ListItem>
-                        <asp:ListItem Value="TPBANK" Text="Ngân hàng TPBank"></asp:ListItem>
-                        <asp:ListItem Value="OJB" Text="Ngân hàng OceanBank"></asp:ListItem>
-                        <asp:ListItem Value="BIDV" Text="Ngân hàng BIDV"></asp:ListItem>
-                        <asp:ListItem Value="TECHCOMBANK" Text="Ngân hàng Techcombank"></asp:ListItem>
-                        <asp:ListItem Value="VPBANK" Text="Ngan hang VPBank"></asp:ListItem>
-                        <asp:ListItem Value="AGRIBANK" Text="Ngan hang Agribank"></asp:ListItem>
-                        <asp:ListItem Value="ACB" Text="Ngan hang ACB"></asp:ListItem>
-                        <asp:ListItem Value="OCB" Text="Ngan hang Phuong Dong"></asp:ListItem>
-                        <asp:ListItem Value="SCB" Text="Ngan hang SCB"></asp:ListItem>
-                    </asp:DropDownList>
-
+                    <select class="form-control" id="bank" name="bank">
+                        <option>Chọn ngân hàng</option>
+                        <option>NCB</option>
+                        <option>VietcomBank</option>
+                        <option>VietinBank</option>
+                        <option>DongA Bank</option>
+                        <option>TP Bank</option>
+                        <option>OceanBank</option>
+                        <option>SCB</option>
+                        <option>Nam A Bank</option>
+                    </select>
                 </div>
-                <div class="form-group">
-                    <label>Ngôn ngữ  (*)</label>
-                    <asp:DropDownList ID="language" CssClass="form-control" runat="server">
-                        <asp:ListItem Value="vn" Text="Tiếng Việt"></asp:ListItem>
-                        <asp:ListItem Value="en" Text="English"></asp:ListItem>
-                    </asp:DropDownList>
-
-                </div>
-                <asp:Button ID="btnPay" runat="server" Text="Thanh toán" CssClass="btn btn-default" OnClick="btnPay_Click" />
-            </form>
+                @*<asp:Button ID="btnPay" runat="server" Text="Thanh toán" CssClass="btn btn-default" OnClick="btnPay_Click" />*@
+                <input type="submit" class="btn btn-default" value="Thanh toán" />
+            }
         </div>
     </div>
 
-    <script src="Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>s
+    <script src="Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
     <link href="https://pay.vnpay.vn/lib/vnpay/vnpay.css" rel="stylesheet" />
     <script type="text/javascript" src="https://pay.vnpay.vn/lib/vnpay/vnpay.min.js"></script>
-   
+
 </body>
 </html>
