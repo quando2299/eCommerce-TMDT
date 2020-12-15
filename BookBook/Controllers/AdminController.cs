@@ -8,7 +8,7 @@ using BookBook.Models;
 
 namespace BookBook.Controllers
 {
-    public class AdminController : Controller
+    public class AdminController : BaseController
     {
         // GET: Admin
         public ActionResult Index()
@@ -34,7 +34,8 @@ namespace BookBook.Controllers
             var list = context.Database.SqlQuery<OrdersModel>(
                 @"select o.id, o.userid, o.total, o.createdate, o.status, concat(u.firstname, ' ', u.lastname) as fullname 
                 from orders o
-	                inner join users u on u.id = o.userid").ToList();
+	                inner join users u on u.id = o.userid
+                where o.status <> 99").ToList();
             return View(list);
         }
 
