@@ -116,15 +116,15 @@ namespace BookBook.Controllers
             {
                 detail.orderid = _order.id;
                 detail.productid = item.id;
-                detail.discountid = (int)Session["discountid"];
+                detail.discountid = int.Parse(Session["discountid"].ToString());
                 detail.quantity = item.quantity;
 
                 context.order_detail.Add(detail);
                 context.SaveChanges();
 
-                bill_Detail.billid = _order.id;
+                bill_Detail.billid = bill.id;
                 bill_Detail.productid = item.id;
-                bill_Detail.discountid = (int)Session["discountid"];
+                bill_Detail.discountid = int.Parse(Session["discountid"].ToString());
                 bill_Detail.quantity = item.quantity;
 
                 context.bill_detail.Add(bill_Detail);

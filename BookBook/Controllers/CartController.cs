@@ -101,6 +101,7 @@ namespace BookBook.Controllers
             view.DiscountID = discountID;
             view.UserID = userID;
 
+            Session["discountid"] = view.DiscountID;
             Session["Total"] = view.Total;
 
             return View(view);
@@ -129,7 +130,7 @@ namespace BookBook.Controllers
             order.createuser = view.FullName;
             order.alterdate = DateTime.Now;
             order.alteruser = view.FullName;
-            Session["discountid"] = view.DiscountID;
+            
 
             int total = 0;
             foreach(var item in Session["Cart"] as List<Cart>)
