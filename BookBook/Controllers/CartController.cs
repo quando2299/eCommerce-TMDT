@@ -129,6 +129,7 @@ namespace BookBook.Controllers
             order.createuser = view.FullName;
             order.alterdate = DateTime.Now;
             order.alteruser = view.FullName;
+            Session["discountid"] = view.DiscountID;
 
             int total = 0;
             foreach(var item in Session["Cart"] as List<Cart>)

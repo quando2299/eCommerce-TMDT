@@ -72,6 +72,67 @@ namespace BookBook.Controllers
 
             MailSender.SendEmail(user.email, userName, "Xác nhận thanh toán !!", content, null);
 
+            order _order = new order();
+            _order.userid = user.id;
+            //order.total = view.Total;
+            _order.status = 1;
+            _order.createdate = DateTime.Now;
+            _order.createuser = userName;
+            _order.alterdate = DateTime.Now;
+            _order.alteruser = userName;
+
+            int total = 0;
+            foreach (var item in Session["Cart"] as List<Cart>)
+            {
+                total += item.quantity * item.price;
+            }
+
+            _order.total = total;
+
+            context.orders.Add(_order);
+            context.SaveChanges();
+
+
+
+
+            bill bill = new bill();
+            bill.userid = user.id;
+            //order.total = view.Total;
+            bill.status = 1;
+            bill.createdate = DateTime.Now;
+            bill.createuser = userName;
+            bill.alterdate = DateTime.Now;
+            bill.alteruser = userName;
+            bill.total = total;
+
+            context.bills.Add(bill);
+            context.SaveChanges();
+
+
+            order_detail detail = new order_detail();
+            bill_detail bill_Detail = new bill_detail();
+
+            foreach (var item in Session["Cart"] as List<Cart>)
+            {
+                detail.orderid = _order.id;
+                detail.productid = item.id;
+                detail.discountid = (int)Session["discountid"];
+                detail.quantity = item.quantity;
+
+                context.order_detail.Add(detail);
+                context.SaveChanges();
+
+                bill_Detail.billid = _order.id;
+                bill_Detail.productid = item.id;
+                bill_Detail.discountid = (int)Session["discountid"];
+                bill_Detail.quantity = item.quantity;
+
+                context.bill_detail.Add(bill_Detail);
+                context.SaveChanges();
+            }
+
+            Session.Remove("Cart");
+
             return Redirect(paymentUrl);
         }
 
