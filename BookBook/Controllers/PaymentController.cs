@@ -17,10 +17,10 @@ namespace BookBook.Controllers
         // GET: Payment
         public ActionResult Index()
         {
-
+            
             OrderInfo orderInfo = new OrderInfo();
-            orderInfo.Amount = 10000;
-            orderInfo.OrderDescription = "Noi dung thanh toan:" + DateTime.Now.ToString("yyyyMMddHHmmss");
+            orderInfo.Amount = decimal.Parse(Session["Total"].ToString());
+            orderInfo.OrderDescription = "Thanh toán sách";
             return View(orderInfo);
         }
 
@@ -60,6 +60,17 @@ namespace BookBook.Controllers
 
             string paymentUrl = vnpay.CreateRequestUrl(vnp_Url, vnp_HashSecret);
             log.InfoFormat("VNPAY URL: {0}", paymentUrl);
+
+
+            //Send Mail After payment
+            BookEntity context = new BookEntity();
+            var user = context.users.Find((int)Session["Account"]);
+            var userName = user.firstname + " " + user.lastname;
+
+            string content = System.IO.File.ReadAllText(System.Web.HttpContext.Current.Server.MapPath("~/Content/Template/ConfirmBillForm.html"));
+            content = content.Replace("{{username}}", userName);
+
+            MailSender.SendEmail(user.email, userName, "Xác nhận thanh toán !!", content, null);
 
             return Redirect(paymentUrl);
         }

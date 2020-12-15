@@ -92,5 +92,11 @@ namespace BookBook.Controllers
             BookEntity context = new BookEntity();
             return View(context.orders.ToList().Where(model => model.userid == int.Parse(Session["Account"].ToString())));
         }
+
+        public ActionResult Bill()
+        {
+            BookEntity context = new BookEntity();
+            return View(context.bills.ToList().Where(model => model.userid == int.Parse(Session["Account"].ToString())));
+        }
     }
 }

@@ -58,10 +58,7 @@
             @Html.HiddenFor(m => m.FullName)
             @Html.HiddenFor(m => m.UserID)
             <input type="submit" class="btn btn-dark" value="Confirm" />
+            <a href="@Url.Action("Index", "Payment")" class="btn btn-default">Thanh toán VNPay</a>
         }
-    }
-    else
-    {
-        <h3 class="text-info">Success!!!</h3>
     }
 }

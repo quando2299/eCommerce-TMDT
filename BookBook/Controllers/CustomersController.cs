@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using BookBook.Database;
 using BookBook.Models;
+using System.Data.Entity;
+using System.Net;
 
 namespace BookBook.Controllers
 {
@@ -56,6 +58,21 @@ namespace BookBook.Controllers
             var list = context.Database.SqlQuery<OrderDetailModel>(query).ToList();
 
             return View(list);
+        }
+
+        public ActionResult Cancel(int? id)
+        {
+            BookEntity context = new BookEntity();
+            var orderbill = context.orders.Find(id);
+
+            if (orderbill == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            orderbill.status = 99;
+            context.Entry(orderbill).State = EntityState.Modified;
+            context.SaveChanges();
+
+
+            return RedirectToAction("Index");
         }
     }
 }

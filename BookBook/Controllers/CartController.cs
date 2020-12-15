@@ -89,7 +89,7 @@ namespace BookBook.Controllers
             var list = Session["Cart"] as List<Cart>;
 
             var discount = context.discounts.FirstOrDefault(m => m.name == code);
-            int discountID = discount.id;
+            int discountID = (discount != null) ? discount.id : 0 ;
             var userID = (int)Session["Account"];
             var _user = context.users.FirstOrDefault(m => m.id == userID);
 
@@ -100,6 +100,8 @@ namespace BookBook.Controllers
             view.Total = result;
             view.DiscountID = discountID;
             view.UserID = userID;
+
+            Session["Total"] = view.Total;
 
             return View(view);
         }
